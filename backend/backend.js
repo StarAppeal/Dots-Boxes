@@ -77,6 +77,8 @@ class MoveValidator {
                 return !field.right;
             case 'left':
                 return !field.left;
+            default: 
+                throw "Unknown clickedBorder..";
         }
     }
 
