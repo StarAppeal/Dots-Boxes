@@ -51,19 +51,19 @@ function createSingleMockedField(x, y) {
 
 function makeMove(move) {
     switch (move.clickedBorder) {
-        case 'top':
+        case 0:
             game.field[move.x][move.y].top = true;
             if (move.x > 0) game.field[move.x - 1][move.y].bot = true;
             break;
-        case 'bot':
-            game.field[move.x][move.y].bot = true;
-            if (move.x < game.field.length - 2) game.field[move.x + 1][move.y].top = true;
-            break;
-        case 'right':
+        case 1:
             game.field[move.x][move.y].right = true;
             if (move.y > game.field[move.x].length - 2) game.field[move.x][move.y + 1].left = true;
             break;
-        case 'left':
+        case 2:
+            game.field[move.x][move.y].bot = true;
+            if (move.x < game.field.length - 2) game.field[move.x + 1][move.y].top = true;
+            break;
+        case 3:
             game.field[move.x][move.y].left = true;
             if (move.y > 0) game.field[move.x][move.y - 1].right = true;
             break;
@@ -92,13 +92,13 @@ class MoveValidator {
     isBorderClickable() {
         let field = game.field[this.move.x][this.move.y];
         switch (this.move.clickedBorder) {
-            case 'top':
+            case 0:
                 return !field.top;
-            case 'bot':
-                return !field.bot;
-            case 'right':
-                return !field.right;
-            case 'left':
+            case 1:
+                return !field.right
+            case 2:
+                return !field.bot
+            case 3:
                 return !field.left;
             default: 
                 throw "Unknown clickedBorder..";
