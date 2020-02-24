@@ -28,10 +28,10 @@ function addField(beginX, beginY, sizeX, sizeY) {
     for (let x = 0; x < sizeX; x++) {
         for (let y = 0; y < sizeY; y++) {
             let field = game.field[beginX + x][beginY + y];
-            if (x === 0) field.top = true;
-            if (x === (sizeX - 1)) field.bot = true;
-            if (y === 0) field.right = true;
-            if (y === (sizeY - 1)) field.left = true;
+            if (y === 0) field.top = true;
+            if (y === (sizeY - 1)) field.bot = true;
+            if (x === 0) field.left = true;
+            if (x === (sizeX - 1)) field.right = true;
         }
     }
 }
@@ -44,24 +44,23 @@ function makeMove(move) {
     switch (move.clickedBorder) {
         case 0:
             game.field[move.x][move.y].top = true;
-            if (move.x > 0) game.field[move.x - 1][move.y].bot = true;
+            if (move.y > 0) game.field[move.x ][move.y - 1].bot = true;
             break;
         case 1:
             game.field[move.x][move.y].right = true;
-            if (move.y > game.field[move.x].length - 2) game.field[move.x][move.y + 1].left = true;
+            if (move.x < game.field.length - 2) game.field[move.x + 1][move.y].left = true;
             break;
         case 2:
             game.field[move.x][move.y].bot = true;
-            if (move.x < game.field.length - 2) game.field[move.x + 1][move.y].top = true;
+            if (move.y < game.field[move.x].length - 2) game.field[move.x ][move.y + 1].top = true;
             break;
         case 3:
             game.field[move.x][move.y].left = true;
-            if (move.y > 0) game.field[move.x][move.y - 1].right = true;
+            if (move.x > 0) game.field[move.x - 1][move.y].right = true;
             break;
         default:
             throw "Unknown clickedBorder...?";
     }
-
 }
 
 function isGameFinished(){
