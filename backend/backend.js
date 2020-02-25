@@ -72,6 +72,14 @@ function makeMove(move) {
     }
 }
 
+function isGameFinished(){
+    game.field.forEach(value => {
+        if (!value.right || !value.left || !value.top || !value.bot) return false;
+    });
+    return true;
+}
+
+
 class Move {
     constructor(x, y, clickedBorder) {
         this.x = x;
