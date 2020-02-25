@@ -1,3 +1,5 @@
+
+
 const game = {
     currentRound: 0,
     currentPlayer: 0,
@@ -23,7 +25,6 @@ function createField(maxX, maxY) {
         }
     }
 }
-
 
 function addField(beginX, beginY, sizeX, sizeY) {
     for (let x = 0; x < sizeX; x++) {
@@ -62,11 +63,12 @@ function makeMove(move) {
         default:
             throw "Unknown clickedBorder...?";
     }
+
 }
 
 function isGameFinished(){
     game.field.forEach(value => {
         if (!value.right || !value.left || !value.top || !value.bot) return false;
-    });
+    }); //TODO: change that (may be inefficient)
     return true;
 }

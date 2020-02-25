@@ -6,7 +6,7 @@ class Field {
       this.right = false;
       this.x = x;
       this.y = y;
-      this.ownedBy = -1; // not owned by anyone 
+      this.ownedBy = -1; // not owned by anyone
   }
 
 }
