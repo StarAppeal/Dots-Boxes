@@ -1,11 +1,24 @@
-.parent#parent
-	.page#page
-		.notch
-		.hole.holes-top
-		.hole.holes-bottom
-		.ripline
-		- for (var i = 0; i < 46; i++) {
-			div(class='fluff' style="top: "+((i*12.8)+4)+"px")
-		- }
-		.hoverMarker#hoverMarker
-		canvas#canvas
+extends layout
+
+block css
+	link(rel='stylesheet', href='/stylesheets/cheese.css')
+
+block jsHead
+	script(src='/javascript/backend/internal/box.js')
+	script(src='/javascript/backend/internal/move.js')
+	script(src='/javascript/backend/internal/moveValidator.js')
+	script(src='/javascript/backend/internal/backend.js') 	
+	script(src='/javascript/frontend/frontend.js')
+
+block content
+	.parent#parent
+		.page#page
+			.notch
+			.hole.holes-top
+			.hole.holes-bottom
+			.ripline
+			- for (var i = 0; i < 46; i++) {
+				div(class='fluff' style="top: "+((i*12.8)+4)+"px")
+			- }
+			.hoverMarker#hoverMarker
+			canvas#canvas
