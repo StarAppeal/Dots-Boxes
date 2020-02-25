@@ -1,4 +1,3 @@
-
 class MoveValidator {
     constructor(move) {
         this.move = move;
