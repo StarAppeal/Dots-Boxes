@@ -1,3 +1,5 @@
+
+
 const game = {
     currentRound: 0,
     currentPlayer: 0,
@@ -24,7 +26,6 @@ function createField(maxX, maxY) {
     }
 }
 
-
 function addField(beginX, beginY, sizeX, sizeY) {
     for (let x = 0; x < sizeX; x++) {
         for (let y = 0; y < sizeY; y++) {
@@ -38,15 +39,7 @@ function addField(beginX, beginY, sizeX, sizeY) {
 }
 
 function createSingleMockedField(x, y) {
-    return {
-        top: false,
-        bot: false,
-        right: false,
-        left: false,
-        x: x,
-        y: y,
-        ownedBy: 0
-    }
+    return new Move(x, y);
 }
 
 function makeMove(move) {
@@ -70,47 +63,12 @@ function makeMove(move) {
         default:
             throw "Unknown clickedBorder...?";
     }
+
 }
 
 function isGameFinished(){
     game.field.forEach(value => {
         if (!value.right || !value.left || !value.top || !value.bot) return false;
-    });
+    }); //TODO: change that (may be inefficient)
     return true;
-}
-
-
-class Move {
-    constructor(x, y, clickedBorder) {
-        this.x = x;
-        this.y = y;
-        this.clickedBorder = clickedBorder;
-    }
-}
-
-class MoveValidator {
-    constructor(move) {
-        this.move = move;
-    }
-
-    isClickInField() {
-        //TODO: todo!
-    }
-
-    isBorderClickable() {
-        let field = game.field[this.move.x][this.move.y];
-        switch (this.move.clickedBorder) {
-            case 0:
-                return !field.top;
-            case 1:
-                return !field.right
-            case 2:
-                return !field.bot
-            case 3:
-                return !field.left;
-            default: 
-                throw "Unknown clickedBorder..";
-        }
-    }
-
 }
