@@ -1,3 +1,5 @@
+var canvas = document.getElementById("canvas")
+
 const ctx = canvas.getContext("2d")
 const page = document.getElementById("page")
 const parentEl = document.getElementById("parent")
