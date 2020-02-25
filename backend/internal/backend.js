@@ -39,7 +39,7 @@ function addField(beginX, beginY, sizeX, sizeY) {
 }
 
 function createSingleMockedField(x, y) {
-    return new Move(x, y);
+    return new Move(x, y); // shouldn't work right now (the library is for that matter, called "require.js", no time to look deeper into it right now sorry) 
 }
 
 function makeMove(move) {
