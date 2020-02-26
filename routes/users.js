@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('admin_test', 'test', 'Gknw76*9', {
+const sequelize = new Sequelize('admin_test', 'test', 'lul', {
   host: 'localhost',
   port: 3306,
   dialect:'mariadb',
