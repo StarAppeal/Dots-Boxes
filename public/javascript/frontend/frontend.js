@@ -4,11 +4,6 @@ const ctx = canvas.getContext("2d")
 const page = document.getElementById("page")
 const parentEl = document.getElementById("parent")
 
-//default position of the paper
-page.style.top = 0
-page.style.left = 0
-
-var zoom = 1 //the visual zoom (scale) of the paper
 var canvasSizeFactor = 3 //the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
 const cellSize = 10 * canvasSizeFactor //size of a single cell in pixels
 const canvasWidth = 44 * cellSize //canvas width in pixels
@@ -34,21 +29,10 @@ const thickLine2Offset = 38 * cellSize
 const gridColor = "#bcd1d8"
 const lineColor = "#5984db"
 
-//mouse stuff
-var holdMouseWheel = false
-var mousePosAtLastDrag
-var mousePosAbs
-var mousePosRel
-
-
 setFluffStyles()
-zoomFunct(zoom)
 redraw()
 
 //adding all events to the window and marker
-window.addEventListener('wheel', scroll)
-window.addEventListener('mousedown', dragField)
-window.addEventListener('mouseup', stopDragField)
 window.addEventListener('mousemove', mouseMove)
 const marker = document.getElementById("hoverMarker")
 marker.oncontextmenu = function (e) {
@@ -73,15 +57,6 @@ function redraw() {
     canvas.height = canvasHeight
     drawGrid()
     //TODO: redraw already placed lines
-}
-
-function zoomFunct(newZoom) {
-    zoom = newZoom
-    page.style.transform = "scale("+zoom+")"
-    //commented out until I figure out if redrawing on the fly is necessary / how it can be achieved with good performance
-    //if (canvasZoom % 2 == 0) {
-        //redraw()
-    //}
 }
 
 function drawGrid() {
@@ -110,63 +85,7 @@ function drawGrid() {
     ctx.stroke()
 }
 
-function scroll(e) {
-    if (e.wheelDeltaX != 0) return //unwanted mouse wheel action
-    var newZoom = zoom
-    if (event.deltaY > 0) {
-        newZoom = newZoom / 1.5
-    } else {
-        newZoom = newZoom * 1.5
-    }
-    if (newZoom > 15 | newZoom < 1) return //zoom outside of allowed range
-    //page.style.transformOrigin = getAbsoluteMousePos(e).x + "px " + getAbsoluteMousePos(e).y+"px" //zoom relative to cursor test, not quite working
-    zoomFunct(newZoom)
-    snapMarkerToGrid(e)
-}
-
-function getAbsoluteMousePos(e) {
-    return {
-        x: event.clientX,
-        y: event.clientY
-    }
-}
-
-//mouse pos relative to (/not influenced by) the current zoom
-function getRelativeMousePos(e) {
-    var rect = canvas.getBoundingClientRect(), // abs. size of element
-        scaleX = canvasWidth / rect.width,    // relationship bitmap vs. element for X
-        scaleY = canvasHeight / rect.height  // relationship bitmap vs. element for Y
-
-    return {
-        x: (event.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
-        y: (event.clientY - rect.top) * scaleY    // been adjusted to be relative to element
-    }
-}
-
-function dragField(e) {
-    if (e.button === 1) { //middle mouse button (scroll click)
-        parentEl.style.cursor = "grabbing"
-        mousePosAtLastDrag = getAbsoluteMousePos(e)
-        holdMouseWheel = true
-    }
-}
-
-function stopDragField(e) {
-    if (e.button === 1) { //middle mouse button (scroll click)
-        parentEl.style.cursor = "default"
-        holdMouseWheel = false
-    }
-}
-
 function mouseMove(e) {
-    mousePosAbs = getAbsoluteMousePos(e)
-    mousePosRel = getRelativeMousePos(e)
-    if (holdMouseWheel) {
-        //calculates position difference between the last position change and now, and modifies the position accordingly
-        page.style.top = parseInt(page.style.top) + mousePosAbs.y - mousePosAtLastDrag.y +"px"
-        page.style.left = parseInt(page.style.left) + mousePosAbs.x - mousePosAtLastDrag.x +"px"
-        mousePosAtLastDrag = getAbsoluteMousePos(e)
-    }
     snapMarkerToGrid(e)
 }
 
@@ -210,7 +129,7 @@ function getMoveForPos(pos) {
 
 var markerPos = {}
 function snapMarkerToGrid(e) {
-    var linePos = getLinePosForMousepos(mousePosRel)
+    var linePos = getLinePosForMousepos(getRelativeMousePos(e))
 
     if (linePos.x >= 0 && linePos.x <= playableFieldWidth && linePos.y >= 0 && linePos.y <= playableFieldHeight) { //is line inside playable area?
         if (linePos.x % 1 != linePos.y % 1) { //is the calculated line on a line and not in a field?
@@ -239,7 +158,6 @@ function roundHalf(num) {
 }
 
 function drawLine(pos) {
-    console.log(markerPos)
     calculatedPos = {
         x: (pos.x + playableFieldOffsetLeft) * cellSize,
         y: (pos.y + playableFieldOffsetTop) * cellSize
