@@ -21,12 +21,5 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
 node_modules/
 tmp/
-Dots-Boxes.iml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/misc.xml
-.idea/copyright/profiles_settings.xml
-.idea/compiler.xml
