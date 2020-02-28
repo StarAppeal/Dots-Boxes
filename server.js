@@ -6,5 +6,5 @@ var port;
 http.createServer(app).listen(process.env.PORT, function() {
 	port = this.address().port;
 	console.log("App listens on port: " + port);
-	opn('http://localhost:'+port+'/kaesekaestchen');
+	if (process.argv[2] === 'DEBUG') opn('http://localhost:'+port+'/kaesekaestchen');
 });
