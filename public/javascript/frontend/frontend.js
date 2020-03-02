@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d")
 const page = document.getElementById("page")
 const parentEl = document.getElementById("parent")
 
-var canvasSizeFactor = 3 //the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
+let canvasSizeFactor = 3 //the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
 const cellSize = 10 * canvasSizeFactor //size of a single cell in pixels
 const canvasWidth = 44 * cellSize //canvas width in pixels
 const canvasHeight = 59 * cellSize //canvas height in pixels
@@ -29,11 +29,13 @@ const thickLine2Offset = 38 * cellSize
 const gridColor = "#bcd1d8"
 const lineColor = "#5984db"
 
+let markerPos = {}
+
 setFluffStyles()
 redraw()
 
 //adding all events to the window and marker
-window.addEventListener('mousemove', mouseMove)
+window.addEventListener('mousemove', snapMarkerToGrid)
 const marker = document.getElementById("hoverMarker")
 marker.oncontextmenu = function (e) {
     e.preventDefault()
@@ -43,9 +45,9 @@ marker.addEventListener('mouseup', markerClick)
 
 //fluff is the remaining stuff to the left of the paper when it gets pulled out of a college block
 function setFluffStyles() {
-    var fluffClassArray = Array("fluff-standard-top", "fluff-standard-bottom", "fluff-ripped") //predefined array of all possible style classes a "fluff" can take on
-    var fluffList = document.getElementsByClassName("fluff")
-    var randomFluffClass
+    let fluffClassArray = Array("fluff-standard-top", "fluff-standard-bottom", "fluff-ripped") //predefined array of all possible style classes a "fluff" can take on
+    let fluffList = document.getElementsByClassName("fluff")
+    let randomFluffClass
     for (let item of fluffList) { //appends random fluff class to every fluff
         randomFluffClass = fluffClassArray[Math.floor(Math.random()*fluffClassArray.length)]
         item.classList.add(randomFluffClass)
@@ -65,19 +67,19 @@ function drawGrid() {
     //draws the whole grid
     ctx.beginPath()
     ctx.lineWidth = 0.5 * canvasSizeFactor
-    for (var i = 0; i < canvasWidth; i += cellSize) {
+    for (let i = 0; i < canvasWidth; i += cellSize) {
         ctx.moveTo(i + visualFieldOffsetLeft, 0)
         ctx.lineTo(i + visualFieldOffsetLeft, canvas.height)
     }
-    for (var i = 0; i < canvasHeight; i += cellSize) {
+    for (let i = 0; i < canvasHeight; i += cellSize) {
         ctx.moveTo(0, i + visualFieldOffsetTop)
         ctx.lineTo(canvas.width, i + visualFieldOffsetTop)
     }
     ctx.stroke()
 
     //draws the thick lines
-    ctx.beginPath();
-    ctx.lineWidth = 1 * canvasSizeFactor;
+    ctx.beginPath()
+    ctx.lineWidth = 1 * canvasSizeFactor
     ctx.moveTo(thickLine1Offset + visualFieldOffsetLeft, 0)
     ctx.lineTo(thickLine1Offset + visualFieldOffsetLeft, canvas.height)
     ctx.moveTo(thickLine2Offset + visualFieldOffsetLeft, 0)
@@ -85,14 +87,10 @@ function drawGrid() {
     ctx.stroke()
 }
 
-function mouseMove(e) {
-    snapMarkerToGrid(e)
-}
-
 function markerClick(e) {
-    if (e.button == 0) {
-        var currMove = getMoveForPos(markerPos);
-        var moveValid = new MoveValidator(currMove).isBorderClickable()
+    if (e.button == 0) { //left mouse button
+        let currMove = getMoveForPos(markerPos)
+        let moveValid = new MoveValidator(currMove).isBorderClickable()
         console.log("Move Validation: " + moveValid)
         if (moveValid) {
             makeMove(currMove)
@@ -103,18 +101,19 @@ function markerClick(e) {
 }
 
 function getMoveForPos(pos) {
-    var d = 0
-    if (pos.x % 1 == 0) {
-        d = 3
+    let d = 0
+    if (pos.x % 1 == 0) { //line vertical
+        d = 3 //standard left
     }
 
-    if (pos.x == playableFieldWidth | pos.y == playableFieldHeight) {
-        d = d + 2
-        d = d % 4
+    if (pos.x == playableFieldWidth || pos.y == playableFieldHeight) { //Line at field border
+        //opposite line
+        d = (d + 2) % 4;
     }
 
-    var move = new Move(Math.ceil(pos.x-0.5), Math.ceil(pos.y-0.5), d)
+    let move = new Move(Math.ceil(pos.x-0.5), Math.ceil(pos.y-0.5), d) //calculates field where line is drawn on
 
+    // decreases field coordinates when line is at edge of field
     if (pos.x == playableFieldWidth) {
         move.x = move.x - 1
     }
@@ -125,29 +124,25 @@ function getMoveForPos(pos) {
     return move
 }
 
-
-
-var markerPos = {}
 function snapMarkerToGrid(e) {
-    var linePos = getLinePosForMousepos(getRelativeMousePos(e))
+    let linePos = getLinePosForMousepos(getRelativeMousePos(e))
+    let lineValidator = new LineValidator(linePos)
 
-    if (linePos.x >= 0 && linePos.x <= playableFieldWidth && linePos.y >= 0 && linePos.y <= playableFieldHeight) { //is line inside playable area?
-        if (linePos.x % 1 != linePos.y % 1) { //is the calculated line on a line and not in a field?
-            markerPos.x = linePos.x
-            markerPos.y = linePos.y
-            marker.style.top = linePos.y * 10 + playableFieldOffsetTop * 10 + "px"
-            marker.style.left = linePos.x * 10 + playableFieldOffsetLeft * 10 + "px"
+    if (lineValidator.isLineInsidePlayableArea(playableFieldWidth, playableFieldHeight) && lineValidator.isLineValid()) {
+        markerPos.x = linePos.x
+        markerPos.y = linePos.y
+        marker.style.top = linePos.y * 10 + playableFieldOffsetTop * 10 + "px"
+        marker.style.left = linePos.x * 10 + playableFieldOffsetLeft * 10 + "px"
 
-            marker.style.transform  = "translate(-50%, -50%)"
-            if (linePos.x % 1 == 0) { //marker vertical
-                marker.style.transform += " rotate(90deg)"
-            }
+        marker.style.transform  = "translate(-50%, -50%)"
+        if (lineValidator.isMarkerVertical()) { //marker vertical
+            marker.style.transform += " rotate(90deg)"
         }
     }
 }
 
 function getLinePosForMousepos(mousePos) {
-    var linePos = {}
+    let linePos = {}
     linePos.x = roundHalf(mousePos.x/cellSize - playableFieldOffsetLeft)
     linePos.y = roundHalf(mousePos.y/cellSize - playableFieldOffsetTop)
     return linePos
@@ -163,7 +158,7 @@ function drawLine(pos) {
         y: (pos.y + playableFieldOffsetTop) * cellSize
     }
 
-    var vertical
+    let vertical
     if (pos.x % 1 == 0) {
         vertical = true
         calculatedPos.y = calculatedPos.y -(0.5 * cellSize)
