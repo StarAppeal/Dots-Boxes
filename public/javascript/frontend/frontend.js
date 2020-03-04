@@ -153,10 +153,7 @@ function roundHalf(num) {
 }
 
 function drawLine(pos) {
-    calculatedPos = {
-        x: (pos.x + playableFieldOffsetLeft) * cellSize,
-        y: (pos.y + playableFieldOffsetTop) * cellSize
-    }
+    let calculatedPos = getCanvasPosByCoords(pos.x, pos.y)
 
     let vertical
     if (pos.x % 1 == 0) {
@@ -180,8 +177,61 @@ function drawLine(pos) {
     ctx.stroke()
 }
 
+//returns the absolute coordinates on the canvas in relation to the given position
+function getCanvasPosByCoords(x, y) {
+    return {
+        x: (x + playableFieldOffsetLeft) * cellSize,
+        y: (y + playableFieldOffsetTop) * cellSize
+    }
+}
+
 function getRandomLinePos() {
     return (0.5 - Math.random()) * canvasSizeFactor
+}
+
+//draws a point in a cell
+function drawPoint(score) {
+    let fieldCoords = getCanvasPosByCoords(score.x, score.y)
+
+    var img = new Image
+    img.src = "./images/points/"+score.image+".png";
+
+    //TODO not performant to load the image every time, it'd be better to store the loaded image in the user object that has yet to be created
+    img.onload = function() {
+        ctx.drawImage(img, fieldCoords.x, fieldCoords.y, cellSize, cellSize);
+        colorize(fieldCoords.x, fieldCoords.y, cellSize, cellSize, score.color)
+    };
+}
+
+//colors the given rectangle in the given hex color
+function colorize(x, y, width, height, color) {
+    var data = ctx.getImageData(x, y, width, height);
+    let rgbColor = hexToRgb(color)
+    //loops through color data
+    for (let i = 0, length = data.data.length; i < length; i += 4) {
+        //is pixel part of the icon?
+        if (data.data[i] == 0 && data.data[i] == data.data[i+2] && data.data[i+1] == 255) {
+            //colors pixel
+            data.data[i] = rgbColor.r;
+            data.data[i+1] = rgbColor.g;
+            data.data[i+2] = rgbColor.b;
+        }
+    }
+
+    ctx.putImageData(data, x, y);
+}
+
+//converts a hex color to a rgb color object
+function hexToRgb(hex) {
+    hex = hex.replace('#','');
+    r = parseInt(hex.substring(0,2), 16);
+    g = parseInt(hex.substring(2,4), 16);
+    b = parseInt(hex.substring(4,6), 16);
+    return {
+        r: r,
+        g: g,
+        b: b
+    }
 }
 
 createField(playableFieldWidth, playableFieldHeight)
