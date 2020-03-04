@@ -37,7 +37,7 @@ redraw()
 //adding all events to the window and marker
 window.addEventListener('mousemove', snapMarkerToGrid)
 const marker = document.getElementById("hoverMarker")
-marker.oncontextmenu = function (e) {
+window.oncontextmenu = function (e) {
     e.preventDefault()
 }
 marker.addEventListener('mouseup', markerClick)

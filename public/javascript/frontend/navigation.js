@@ -1,6 +1,7 @@
 //default position of the paper
-page.style.top = 'calc(50% - (' + page.style.height + '/2))'
-page.style.left = 'calc(50% - (' + page.style.width + '/2))'
+//page.style.top = 'calc(50% - (' + page.style.height + '/2))'
+page.style.top = (window.innerHeight * 0.5 - (parseInt(page.style.height) / 2)) + 'px'
+page.style.left = (window.innerWidth * 0.5 - (parseInt(page.style.width) / 2)) + 'px'
 
 var zoom = 1 //the visual zoom (scale) of the paper
 
@@ -35,8 +36,15 @@ function scroll(e) {
         newZoom = newZoom * 1.5
     }
     if (newZoom > 15 || newZoom < 1) return //zoom outside of allowed range
-    //page.style.transformOrigin = getAbsoluteMousePos(e).x + "px " + getAbsoluteMousePos(e).y+"px" //zoom relative to cursor test, not quite working
+
+    let oldMousePosRel = getRelativeMousePos(e)
     zoomFunct(newZoom)
+    let newMousePosRel = getRelativeMousePos(e)
+
+    //setting top and left values relative to the mouse position so it stays the same
+    //(not completely sure why it works, but it does!)
+    page.style.top = parseInt(page.style.top) + (newMousePosRel.y - oldMousePosRel.y) * zoom / canvasSizeFactor + "px"
+    page.style.left = parseInt(page.style.left) + (newMousePosRel.x - oldMousePosRel.x) * zoom / canvasSizeFactor + "px"
 }
 
 function getAbsoluteMousePos(event) {

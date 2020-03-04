@@ -22,7 +22,7 @@ html {
   position: absolute;
   height: 590px;
   width: 440px;
-  transform-origin: center;
+  transform-origin: 0 0;
 }
 
 .fluff, .notch, .hole, .hole:before, .ripline {
