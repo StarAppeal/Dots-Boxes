@@ -1,7 +1,7 @@
 class Box {
   constructor(x, y) {
       this.top = false;
-      this.right = false;
+      this.left = false;
       this.bot = false;
       this.right = false;
       this.x = x;
