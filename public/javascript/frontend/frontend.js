@@ -1,10 +1,12 @@
 //HTML elements
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
+const pointDesigner = document.getElementById("pointDesigner")
+const ctxPointDesigner = pointDesigner.getContext("2d")
 const page = document.getElementById("page")
 const parentEl = document.getElementById("parent")
 
-let canvasSizeFactor = 3 //the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
+let canvasSizeFactor = 5//the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
 const cellSize = 10 * canvasSizeFactor //size of a single cell in pixels
 const canvasWidth = 44 * cellSize //canvas width in pixels
 const canvasHeight = 59 * cellSize //canvas height in pixels
@@ -14,8 +16,8 @@ const visualFieldOffsetLeft = 0.2 * cellSize
 const visualFieldOffsetTop = 0.8 * cellSize
 
 //you are not supposed to play on the whole paper as for example there are holes on the left, where a game would not make sense
-const playableFieldOffsetLeft = 5 +0.2//+ visualFieldOffsetLeft
-const playableFieldOffsetTop = 0 + 0.8//visualFieldOffsetTop
+const playableFieldOffsetLeft = 5 + 0.2 //+ visualFieldOffsetLeft
+const playableFieldOffsetTop = 0 + 0.8 //visualFieldOffsetTop
 
 //dimensions of the playable field
 const playableFieldWidth = 38
@@ -29,10 +31,15 @@ const thickLine2Offset = 38 * cellSize
 const gridColor = "#bcd1d8"
 const lineColor = "#5984db"
 
+//pointDesigner stuff
+let designedPointsMap = new Map()
+const pointSize = 256
+pointDesigner.width = pointSize
+pointDesigner.height = pointSize
+
 let markerPos = {}
 
-setFluffStyles()
-redraw()
+
 
 //adding all events to the window and marker
 window.addEventListener('mousemove', snapMarkerToGrid)
@@ -54,7 +61,7 @@ function setFluffStyles() {
     }
 }
 
-function redraw() {
+function draw() {
     canvas.width = canvasWidth
     canvas.height = canvasHeight
     drawGrid()
@@ -167,11 +174,11 @@ function drawLine(pos) {
     ctx.strokeStyle = lineColor
     ctx.beginPath()
     ctx.lineWidth = 1.5 * canvasSizeFactor
-    ctx.moveTo(calculatedPos.x + getRandomLinePos(), calculatedPos.y + getRandomLinePos())
+    ctx.moveTo(calculatedPos.x + getRandom(canvasSizeFactor), calculatedPos.y + getRandom(canvasSizeFactor))
     if (vertical) {
-        ctx.lineTo(calculatedPos.x + getRandomLinePos(), calculatedPos.y + cellSize + getRandomLinePos())
+        ctx.lineTo(calculatedPos.x + getRandom(canvasSizeFactor), calculatedPos.y + cellSize + getRandom(canvasSizeFactor))
     } else {
-        ctx.lineTo(calculatedPos.x + cellSize + getRandomLinePos(), calculatedPos.y + getRandomLinePos())
+        ctx.lineTo(calculatedPos.x + cellSize + getRandom(canvasSizeFactor), calculatedPos.y + getRandom(canvasSizeFactor))
     }
 
     ctx.stroke()
@@ -185,27 +192,22 @@ function getCanvasPosByCoords(x, y) {
     }
 }
 
-function getRandomLinePos() {
-    return (0.5 - Math.random()) * canvasSizeFactor
+function getRandom(diameter) {
+    return (0.5 - Math.random()) * diameter
 }
 
 //draws a point in a cell
 function drawPoint(score) {
     let fieldCoords = getCanvasPosByCoords(score.x, score.y)
 
-    var img = new Image
-    img.src = "./images/points/"+score.image+".png";
-
-    //TODO not performant to load the image every time, it'd be better to store the loaded image in the user object that has yet to be created
-    img.onload = function() {
-        ctx.drawImage(img, fieldCoords.x, fieldCoords.y, cellSize, cellSize);
-        colorize(fieldCoords.x, fieldCoords.y, cellSize, cellSize, score.color)
-    };
+    let randomOffsetTop = getRandom(cellSize * 0.3)
+    let randomOffsetLeft = getRandom(cellSize * 0.3)
+    ctx.drawImage(designedPointsMap.get(score.user), fieldCoords.x + randomOffsetTop, fieldCoords.y + randomOffsetLeft, cellSize, cellSize)
 }
 
 //colors the given rectangle in the given hex color
-function colorize(x, y, width, height, color) {
-    var data = ctx.getImageData(x, y, width, height);
+function colorize(context, x, y, width, height, color) {
+    var data = context.getImageData(x, y, width, height);
     let rgbColor = hexToRgb(color)
     //loops through color data
     for (let i = 0, length = data.data.length; i < length; i += 4) {
@@ -218,7 +220,7 @@ function colorize(x, y, width, height, color) {
         }
     }
 
-    ctx.putImageData(data, x, y);
+    context.putImageData(data, x, y);
 }
 
 //converts a hex color to a rgb color object
@@ -234,5 +236,29 @@ function hexToRgb(hex) {
     }
 }
 
-createField(playableFieldWidth, playableFieldHeight)
-addField(0, 0, playableFieldWidth, playableFieldHeight)
+//generates a point icon for the given user from the pointDesigner canvas
+function generatePointFromPointDesigner(userId) {
+    var generatedImage = new Image
+    generatedImage.src = pointDesigner.toDataURL("image/png")
+    designedPointsMap.set(userId, generatedImage)
+}
+
+//sets the icon "id" in the color "clr" for the given user
+function choosePreset(clr, id, userId) {
+    var presetPoint = new Image
+    presetPoint.src = "./images/points/"+id+".png";
+
+    presetPoint.onload = function() {
+        ctxPointDesigner.clearRect(0, 0, pointDesigner.width, pointDesigner.height);
+        ctxPointDesigner.drawImage(presetPoint, 0, 0)
+        colorize(ctxPointDesigner, 0, 0, pointSize, pointSize, clr)
+        generatePointFromPointDesigner(userId)
+    }
+}
+
+//generates three entries in the designedPointsMap
+function mockGenerateAllPoints() {
+    for (var i = 0; i < 3; i++) {
+        choosePreset(Math.floor(Math.random()*16777215).toString(16), i, i)
+    }
+}
