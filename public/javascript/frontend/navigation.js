@@ -1,8 +1,3 @@
-//default position of the paper
-//page.style.top = 'calc(50% - (' + page.style.height + '/2))'
-page.style.top = (window.innerHeight * 0.5 - (parseInt(page.style.height) / 2)) + 'px'
-page.style.left = (window.innerWidth * 0.5 - (parseInt(page.style.width) / 2)) + 'px'
-
 var zoom = 1 //the visual zoom (scale) of the paper
 
 //mouse stuff
@@ -23,7 +18,7 @@ function zoomFunct(newZoom) {
     page.style.transform = "scale("+zoom+")"
     //commented out until I figure out if redrawing on the fly is necessary / how it can be achieved with good performance
     //if (canvasZoom % 2 == 0) {
-        //redraw()
+        //draw()
     //}
 }
 
@@ -89,4 +84,9 @@ function mouseMove(e) {
         page.style.left = parseInt(page.style.left) + mousePosAbs.x - mousePosAtLastDrag.x +"px"
         mousePosAtLastDrag = getAbsoluteMousePos(e)
     }
+}
+
+function setDefaultPaperPosition() {
+    page.style.top = (window.innerHeight * 0.5 - (parseInt(page.style.height) / 2)) + 'px'
+    page.style.left = (window.innerWidth * 0.5 - (parseInt(page.style.width) / 2)) + 'px'
 }

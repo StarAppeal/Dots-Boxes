@@ -10,7 +10,8 @@ block jsHead
 	script(src='/javascript/backend/internal/backend.js') 	
 
 block content
-	.parent#parent
+	canvas#pointDesigner
+	.parent#parent.inactive
 		.page(id='page' style='height: 590px; width: 440px;')
 			.notch
 			.hole.holes-top
@@ -26,3 +27,4 @@ block jsBody
 	script(src='/javascript/frontend/lineValidator.js')
 	script(src='/javascript/frontend/frontend.js')
 	script(src='/javascript/frontend/navigation.js')
+	script(src='/javascript/frontend/init.js')

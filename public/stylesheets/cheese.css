@@ -12,6 +12,10 @@ html {
   box-sizing: border-box;
 }
 
+.inactive {
+    display: none
+}
+
 .parent {
   position: relative;
   height: 100%;
@@ -124,4 +128,8 @@ html {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10px' height='1px' ><rect x='0' y='0' fill='rgba(100, 149, 237, 0.5)' width='20' height='10'/></svg>");
   background-position: center;
   background-repeat: no-repeat;
+}
+
+#pointDesigner {
+    display: none;
 }
