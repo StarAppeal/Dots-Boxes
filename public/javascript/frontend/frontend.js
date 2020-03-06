@@ -6,7 +6,7 @@ const ctxPointDesigner = pointDesigner.getContext("2d")
 const page = document.getElementById("page")
 const parentEl = document.getElementById("parent")
 
-let canvasSizeFactor = 5//the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
+let canvasSizeFactor = 5 //the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
 const cellSize = 10 * canvasSizeFactor //size of a single cell in pixels
 const canvasWidth = 44 * cellSize //canvas width in pixels
 const canvasHeight = 59 * cellSize //canvas height in pixels
@@ -202,7 +202,7 @@ function drawPoint(score) {
 
     let randomOffsetTop = getRandom(cellSize * 0.3)
     let randomOffsetLeft = getRandom(cellSize * 0.3)
-    ctx.drawImage(designedPointsMap.get(score.user), fieldCoords.x + randomOffsetTop, fieldCoords.y + randomOffsetLeft, cellSize, cellSize)
+    ctx.drawImage(designedPointsMap.get(score.user), fieldCoords.x + randomOffsetLeft, fieldCoords.y + randomOffsetTop, cellSize, cellSize)
 }
 
 //colors the given rectangle in the given hex color
@@ -260,5 +260,18 @@ function choosePreset(clr, id, userId) {
 function mockGenerateAllPoints() {
     for (var i = 0; i < 3; i++) {
         choosePreset(Math.floor(Math.random()*16777215).toString(16), i, i)
+    }
+}
+
+//inserts garfield profile pictures for testing
+function mockInsertGarfield() {
+    let userImages = document.getElementsByClassName('user')
+    for (var i = 0; i < 4; i++) {
+        userImage = userImages[i]
+        userImage.onclick = function() {
+            console.log(this.classList.toggle("active"))
+        }
+        userImage.style.backgroundImage = "url('/images/garfield/"+i+".gif')"
+        userImages[i].firstElementChild.innerHTML = "User #"+i
     }
 }

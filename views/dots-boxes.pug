@@ -10,8 +10,13 @@ block jsHead
 	script(src='/javascript/backend/internal/backend.js') 	
 
 block content
-	canvas#pointDesigner
 	.parent#parent.inactive
+		canvas#pointDesigner
+		.users
+			- for (var i = 0; i < 4; i++) {
+				div(class='user user'+i)
+					div(class='userName' id='userName'+i)
+			- }
 		.page(id='page' style='height: 590px; width: 440px;')
 			.notch
 			.hole.holes-top
