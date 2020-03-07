@@ -1,3 +1,4 @@
+zoomFunct(zoom)
 setDefaultPaperPosition()
 setFluffStyles()
 draw()

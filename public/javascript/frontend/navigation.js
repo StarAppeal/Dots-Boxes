@@ -5,8 +5,6 @@ var holdMouseWheel = false
 var mousePosAtLastDrag
 var mousePosAbs
 
-zoomFunct(zoom)
-
 //adding all events to the window and marker
 window.addEventListener('wheel', scroll)
 window.addEventListener('mousedown', dragField)
@@ -87,6 +85,6 @@ function mouseMove(e) {
 }
 
 function setDefaultPaperPosition() {
-    page.style.top = (window.innerHeight * 0.5 - (parseInt(page.style.height) / 2)) + 'px'
-    page.style.left = (window.innerWidth * 0.5 - (parseInt(page.style.width) / 2)) + 'px'
+    page.style.top = (window.innerHeight * 0.5 - (parseInt(page.style.height) * zoom / 2)) + 'px'
+    page.style.left = (window.innerWidth * 0.5 - (parseInt(page.style.width) * zoom / 2)) + 'px'
 }
