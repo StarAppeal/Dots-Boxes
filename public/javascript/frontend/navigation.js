@@ -1,4 +1,4 @@
-var zoom = 1 //the visual zoom (scale) of the paper
+var zoom = 1.1 //the visual zoom (scale) of the paper
 
 //mouse stuff
 var holdMouseWheel = false
