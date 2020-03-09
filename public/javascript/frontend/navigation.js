@@ -60,7 +60,7 @@ function getRelativeMousePos(e) {
 }
 
 function dragField(e) {
-    if (e.button === 1) { //middle mouse button (scroll click)
+    if (e.button === 2) { //right mouse button
         parentEl.style.cursor = "grabbing"
         mousePosAtLastDrag = getAbsoluteMousePos(e)
         holdMouseWheel = true
@@ -68,7 +68,7 @@ function dragField(e) {
 }
 
 function stopDragField(e) {
-    if (e.button === 1) { //middle mouse button (scroll click)
+    if (e.button === 2) { //right mouse button
         parentEl.style.cursor = "default"
         holdMouseWheel = false
     }

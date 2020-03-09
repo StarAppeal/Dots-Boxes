@@ -279,9 +279,6 @@ function mockInsertGarfield() {
     let userImages = document.getElementsByClassName('user')
     for (var i = 0; i < 4; i++) {
         userImage = userImages[i]
-        userImage.onclick = function() {
-            console.log(this.classList.toggle("active"))
-        }
         userImage.style.backgroundImage = "url('/images/garfield/"+i+".gif')"
         userImages[i].firstElementChild.innerHTML = "User #"+i
     }
