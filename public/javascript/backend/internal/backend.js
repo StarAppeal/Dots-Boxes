@@ -92,6 +92,7 @@ function makeMove(move) {
 }
 
 function isPointScored(box){
+    if (typeof box === 'undefined') return false;
     return box.top && box.right && box.bot && box.left;
 }
 
