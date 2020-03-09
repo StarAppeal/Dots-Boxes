@@ -5,9 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "test": "mocha",
-	"tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly server.js",
-    "prod": "tsc && node server.js"
+	"tsc": "tsc"
   },
   "dependencies": {
     "body-parser": "~1.18.3",
