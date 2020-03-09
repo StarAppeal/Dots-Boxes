@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-	"test": "mocha"
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "~1.18.3",
@@ -18,7 +18,8 @@
     "pug": "^2.0.3",
     "sequelize": "^5.21.4",
     "serve-favicon": "~2.5.0",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.1.1",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
     "mocha": "^7.1.0"
