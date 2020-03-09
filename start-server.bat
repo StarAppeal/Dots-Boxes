@@ -1,1 +1,2 @@
-node server.js DEBUG
+npm run dev DEBUG
+pause
