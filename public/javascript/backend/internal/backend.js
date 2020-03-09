@@ -77,15 +77,32 @@ function makeMove(move) {
         default:
             throw "Unknown clickedBorder...?";
     }
-    if (isPointScored(field1)) result.push(field1);
-    if (isPointScored(field2)) result.push(field2);
-
+    if (isPointScored(field1)){
+        field1.ownedBy = game.currentPlayer;
+        result.push(field1);
+    }
+    if (isPointScored(field2)){
+        field2.ownedBy = game.currentPlayer;
+        result.push(field2);
+    }
+    game.currentRound += 1;
+    nextPlayer(result.length > 0 );
     return result;
 
 }
 
 function isPointScored(box){
     return box.top && box.right && box.bot && box.left;
+}
+
+function nextPlayer(pointScored){
+    if (!pointScored){
+        if (game.currentPlayer == 3){
+            game.currentPlayer = 0;
+        } else{
+            game.currentPlayer += 1;
+        }
+    }
 }
 
 function isGameFinished(){

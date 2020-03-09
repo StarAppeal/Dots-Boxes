@@ -100,8 +100,19 @@ function markerClick(e) {
         let moveValid = new MoveValidator(currMove).isBorderClickable()
         console.log("Move Validation: " + moveValid)
         if (moveValid) {
-            makeMove(currMove)
+            let points = makeMove(currMove)
             drawLine(markerPos)
+            if (points.length == 0) {
+                displayCurrentUser(game.currentPlayer)
+            } else {
+                points.forEach(function(item, index){
+                    drawPoint({
+                        x: item.x,
+                        y: item.y,
+                        user: item.ownedBy
+                    })
+                })
+            }
         }
         //console.log(game.field)
     }
@@ -258,7 +269,7 @@ function choosePreset(clr, id, userId) {
 
 //generates three entries in the designedPointsMap
 function mockGenerateAllPoints() {
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 4; i++) {
         choosePreset(Math.floor(Math.random()*16777215).toString(16), i, i)
     }
 }
@@ -274,4 +285,13 @@ function mockInsertGarfield() {
         userImage.style.backgroundImage = "url('/images/garfield/"+i+".gif')"
         userImages[i].firstElementChild.innerHTML = "User #"+i
     }
+}
+
+let userImages = document.getElementsByClassName('user')
+
+function displayCurrentUser(userId) {
+    for (let userImage of userImages) {
+        userImage.classList.remove("active")
+    }
+    userImages[userId].classList.add("active")
 }
