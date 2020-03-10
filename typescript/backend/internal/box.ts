@@ -1,8 +1,10 @@
-"use strict";
-var Box = /** @class */ (function () {
-    function Box(x, y) {
-        this.x = x;
-        this.y = y;
+class Box {
+    top: boolean
+    right: boolean
+    bot: boolean
+    left: boolean
+    ownedBy: number
+    constructor(public x: number, public y: number) {
         this.top = false;
         this.left = false;
         this.bot = false;
@@ -11,5 +13,5 @@ var Box = /** @class */ (function () {
         this.y = y;
         this.ownedBy = -1; // not owned by anyone
     }
-    return Box;
-}());
+
+}
