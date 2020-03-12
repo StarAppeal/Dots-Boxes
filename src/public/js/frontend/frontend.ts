@@ -100,8 +100,13 @@ function snapMarkerToGrid(e: any) {
             marker.style.transform += " rotate(90deg)"
         }
     }
+}function getCellPositionForMousepos(mousePos: Pos) {
+    let xPos = mousePos.x/gameCanvas.cellSize - gameCanvas.playableFieldOffsetLeft
+    let yPos = mousePos.y/gameCanvas.cellSize - gameCanvas.playableFieldOffsetTop
+    return new Pos(xPos, yPos)
 }
 
+//calculates the nearest line position from the given mouse position
 function getLinePosForMousepos(mousePos: Pos) {
     let cellPos = getCellPositionForMousepos(mousePos)
     let xPos: number
@@ -114,6 +119,11 @@ function getLinePosForMousepos(mousePos: Pos) {
         xPos = Math.round(cellPos.x)
     }
     return new Pos(xPos, yPos)
+}
+
+//Calculates numeral distance to the next .5 value
+function calculateDistanceToNextHalf(x: number) {
+    return Math.abs(x%1-0.5)
 }
 
 function roundHalf(num: number) {
