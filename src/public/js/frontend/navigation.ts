@@ -21,7 +21,7 @@ function zoomFunct(newZoom: number) {
 }
 
 function canvasScroll(e: any) {
-    if (e.wheelDeltaX != 0) return //unwanted mouse wheel action
+    if (e.wheelDeltaX != undefined && e.wheelDeltaX != 0) return //unwanted mouse wheel action
     let newZoom = zoom
     if (e.deltaY > 0) {
         newZoom = newZoom / 1.5

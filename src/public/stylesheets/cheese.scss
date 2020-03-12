@@ -128,11 +128,10 @@ html {
 
 .hoverMarker {
   width: 20px;
-  height: 10px;
+  height: 11px;
   position: absolute;
   z-index: 2;
-  box-sizing: border-box;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10px' height='1px' ><rect x='0' y='0' fill='rgba(100, 149, 237, 0.5)' width='20' height='10'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20px' height='11px' ><rect x='5' y='5' fill='rgba(100, 149, 237, 0.5)' width='10' height='1'/></svg>");
   background-position: center;
   background-repeat: no-repeat;
 }
