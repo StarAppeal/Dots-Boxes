@@ -6,7 +6,6 @@ createField(gameCanvas.playableFieldWidth, gameCanvas.playableFieldHeight)
 addField(0, 0, gameCanvas.playableFieldWidth, gameCanvas.playableFieldHeight)
 mockGenerateAllPoints()
 mockInsertGarfield()
-displayCurrentUser(game.currentPlayer)
-alert("hi");
+displayCurrentUser(game.currentPlayer);
 
 parentEl.classList.remove("inactive")

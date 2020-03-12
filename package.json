@@ -13,7 +13,7 @@
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "build-sass": "node-sass -r src/public/stylesheets/ -o dist/public/stylesheets/",
-    "watch-sass": "node-sass src/public/stylesheets/ -o dist/public/stylesheets/",
+    "watch-sass": "node-sass -rw src/public/stylesheets/ -o dist/public/stylesheets/",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
     "serve-debug": "nodemon --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\""

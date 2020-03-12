@@ -2,28 +2,29 @@ const app = require('./app');
 const http = require('http');
 const opn = require('opn');
 const _models = require("./models")
-var port : any;
+var port: any;
 
 http.createServer(app).listen(process.env.PORT, function() {
-    port = this.address().port;
-    console.log("App listens on port: " + port);
-    if (process.argv[2] === 'DEBUG') {
-        debugMode();
-    }
+  port = this.address().port;
+  console.log("App listens on port: " + port);
+  if (!process.env.NODE_ENV) {
+    console.log("server started in debugmode:")
+    debugMode();
+  }
 });
 
 
 function debugMode() {
-    opn('http://localhost:' + port + '/kaesekaestchen');
+  opn('http://localhost:' + port + '/kaesekaestchen');
 
-    //create database tables if not exist
-    _models.sequelize.sync().then(function() {
-        //creating mockdata:
-        _models.User.create({
-            username: "StarAppeal_mocked",
-            email: "nocked@starappeal.de",
-            pass: "justARandomString..."
-        });
-
+  //create database tables if not exist
+  _models.sequelize.sync().then(function() {
+    //creating mockdata:
+    _models.User.create({
+      username: "StarAppeal_mocked",
+      email: "nocked@starappeal.de",
+      pass: "justARandomString..."
     });
+
+  });
 }
