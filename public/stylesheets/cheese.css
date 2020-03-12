@@ -1,6 +1,8 @@
 :root {
     --background_color: lightblue;
     --paper_color: white;
+    --active-user-color: #00d500;
+    --inactive-user-color: gray;
 }
 
 html,
@@ -143,26 +145,55 @@ html {
     z-index: 1;
     position: fixed;
     text-align: center;
-    width: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: fit-content;
+    user-select: none;
+    border-radius: 0 0 10px 10px;
+    background-color: white;
+
+
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .user {
-    margin: 20px;
+    margin: 25px;
     width: 80px;
     height: 80px;
     display: inline-block;
     background-color: #d0ebff;;
     border-radius: 10px;
-    border: 5px solid #909090;
+    border: 5px solid var(--inactive-user-color);
     background-size: contain;
-    transition: border-color 0.5s;
+    transition: border-color 0.3s;
 }
 
 .user.active {
-    border-color: #005a8e;;
+    border-color: var(--active-user-color);
+}
+
+.user:before {
+    width: 0px;
+    height: 0px;
+    background-color: var(--inactive-user-color);
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.3s;
+    transform: translate(-50%, -100%);
+}
+
+.user.active:before {
+    width: 15px;
+    height: 15px;
+    background-color: var(--active-user-color);
+    transform: translate(-50%, -150%);
 }
 
 .userName {
     position: relative;
     top: 113%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: small;
 }
