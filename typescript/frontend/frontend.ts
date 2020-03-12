@@ -87,6 +87,7 @@ function getMoveForPos(pos: Pos) {
 
 function snapMarkerToGrid(e: any) {
     let linePos = getLinePosForMousepos(getRelativeMousePos(e))
+    console.log(linePos)
     let lineValidator = new LineValidator(linePos)
 
     if (lineValidator.isLineInsidePlayableArea(gameCanvas.playableFieldWidth, gameCanvas.playableFieldHeight) && lineValidator.isLineValid()) {
@@ -102,10 +103,28 @@ function snapMarkerToGrid(e: any) {
     }
 }
 
-function getLinePosForMousepos(mousePos: Pos) {
-    let xPos = roundHalf(mousePos.x/gameCanvas.cellSize - gameCanvas.playableFieldOffsetLeft)
-    let yPos = roundHalf(mousePos.y/gameCanvas.cellSize - gameCanvas.playableFieldOffsetTop)
+function getCellPositionForMousepos(mousePos: Pos) {
+    let xPos = mousePos.x/gameCanvas.cellSize - gameCanvas.playableFieldOffsetLeft
+    let yPos = mousePos.y/gameCanvas.cellSize - gameCanvas.playableFieldOffsetTop
     return new Pos(xPos, yPos)
+}
+
+//calculates the nearest line position from the given mouse position
+function getLinePosForMousepos(mousePos: Pos) {
+    let cellPos = getCellPositionForMousepos(mousePos)
+    if(calculateDistanceToNextHalf(cellPos.x) < calculateDistanceToNextHalf(cellPos.y)) {
+        let xPos = Math.floor(cellPos.x) + 0.5
+        let yPos = Math.round(cellPos.y)
+    } else {
+        let yPos = Math.floor(cellPos.y) + 0.5
+        let xPos = Math.round(cellPos.x)
+    }
+    return new Pos(xPos, yPos)
+}
+
+//Calculates numeral distance to the next .5 value
+function calculateDistanceToNextHalf(x: number) {
+    return Math.abs(x%1-0.5)
 }
 
 function roundHalf(num: number) {
