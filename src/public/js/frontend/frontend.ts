@@ -103,8 +103,16 @@ function snapMarkerToGrid(e: any) {
 }
 
 function getLinePosForMousepos(mousePos: Pos) {
-    let xPos = roundHalf(mousePos.x/gameCanvas.cellSize - gameCanvas.playableFieldOffsetLeft)
-    let yPos = roundHalf(mousePos.y/gameCanvas.cellSize - gameCanvas.playableFieldOffsetTop)
+    let cellPos = getCellPositionForMousepos(mousePos)
+    let xPos: number
+    let yPos: number
+    if(calculateDistanceToNextHalf(cellPos.x) < calculateDistanceToNextHalf(cellPos.y)) {
+        xPos = Math.floor(cellPos.x) + 0.5
+        yPos = Math.round(cellPos.y)
+    } else {
+        yPos = Math.floor(cellPos.y) + 0.5
+        xPos = Math.round(cellPos.x)
+    }
     return new Pos(xPos, yPos)
 }
 
