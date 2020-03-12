@@ -87,7 +87,6 @@ function getMoveForPos(pos: Pos) {
 
 function snapMarkerToGrid(e: any) {
     let linePos = getLinePosForMousepos(getRelativeMousePos(e))
-    console.log(linePos)
     let lineValidator = new LineValidator(linePos)
 
     if (lineValidator.isLineInsidePlayableArea(gameCanvas.playableFieldWidth, gameCanvas.playableFieldHeight) && lineValidator.isLineValid()) {
@@ -112,12 +111,14 @@ function getCellPositionForMousepos(mousePos: Pos) {
 //calculates the nearest line position from the given mouse position
 function getLinePosForMousepos(mousePos: Pos) {
     let cellPos = getCellPositionForMousepos(mousePos)
+    let xPos: number
+    let yPos: number
     if(calculateDistanceToNextHalf(cellPos.x) < calculateDistanceToNextHalf(cellPos.y)) {
-        let xPos = Math.floor(cellPos.x) + 0.5
-        let yPos = Math.round(cellPos.y)
+        xPos = Math.floor(cellPos.x) + 0.5
+        yPos = Math.round(cellPos.y)
     } else {
-        let yPos = Math.floor(cellPos.y) + 0.5
-        let xPos = Math.round(cellPos.x)
+        yPos = Math.floor(cellPos.y) + 0.5
+        xPos = Math.round(cellPos.x)
     }
     return new Pos(xPos, yPos)
 }
