@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+	"start": "npm run serve",
     "debug": "npm run build && npm run watch-debug",
     "build": "npm run build-sass && npm run build-ts && npm run copy-static-assets",
     "serve": "node dist/server.js",
