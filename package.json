@@ -1,9 +1,9 @@
 {
-  "name": "express-demo",
-  "version": "0.0.0",
+  "name": "dots-and-boxes",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "debug": "npm run build && npm run watch-debug DEBUG",
+    "debug": "npm run build && npm run watch-debug",
     "build": "npm run build-sass && npm run build-ts && npm run copy-static-assets",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
