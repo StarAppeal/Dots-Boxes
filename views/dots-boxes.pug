@@ -12,7 +12,19 @@ block jsHead
 
 block content
 	.parent#parent.inactive
-		canvas#pointDesigner
+		input(type="button" value="Icon selector toggle")#iconDlgOpener
+		#iconSelector.inactive
+			.flip-card
+				.icon-selector-wrapper.front.card
+					i.flipper.material-icons flip_to_back
+					i.selector.material-icons check_circle_outline
+					h1 Bitte wähle ein Symbol
+					#iconList.card
+				.icon-selector-wrapper.back.card
+					i.flipper.material-icons flip_to_front
+					i.selector.material-icons check_circle_outline
+					h1 Oder mal es dir halt selbst
+					canvas#pointDesigner
 		#users.card
 			- for (var i = 0; i < 4; i++) {
 				div(class='user user'+i)

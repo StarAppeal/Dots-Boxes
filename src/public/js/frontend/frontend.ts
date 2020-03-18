@@ -215,3 +215,10 @@ function displayCurrentUser(userId: number) {
     }
     userImages[userId].classList.add("active")
 }
+
+function imageExists(image_url: string){
+  let http = new XMLHttpRequest();
+  http.open('HEAD', image_url, false);
+  http.send();
+  return http.status != 500;
+}

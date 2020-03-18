@@ -14,6 +14,7 @@ body {
   margin: 0;
   background-color: var(--background_color);
   font-family: 'Roboto', sans-serif;
+  user-select: none;
 }
 
 html {
@@ -137,10 +138,6 @@ html {
   background-repeat: no-repeat;
 }
 
-#pointDesigner {
-  display: none;
-}
-
 .card {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background-color: white;
@@ -238,4 +235,152 @@ html {
 
 .inactive {
   display: none;
+}
+
+
+#iconDlgOpener {
+  z-index: 99;
+  position: absolute;
+}
+
+#pointDesigner {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  width: 400px;
+  height: 400px;
+}
+
+#iconSelector {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #00000033;
+  z-index: 2;
+}
+
+#iconSelector {
+  border: 1px solid #f1f1f1;
+  perspective: 1000px;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  animation: flashflip 0.01s;
+}
+
+@keyframes flashflip {
+  0% {
+      opacity:0;
+      transform: rotatey(-180deg);
+    }
+  100% {
+      opacity:1;
+      transform: rotatey(180deg);
+    }
+}
+
+#iconSelector .flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.icon-selector-wrapper {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  backface-visibility: hidden;
+  padding: 20px;
+}
+
+.icon-selector-wrapper.back {
+  transform: translate(-50%, -50%) rotateY(180deg);
+}
+
+#iconList {
+  width: 100%;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+#iconList::-webkit-scrollbar {
+  display: none;
+}
+
+#iconList .icon-wrapper {
+  width: unset;
+  position: relative;
+  display: inline-block;
+  padding: 20px;
+}
+
+#iconList .icon {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  background-size: contain;
+  border-radius: 5px;
+  filter: grayscale(1) saturate(0%) brightness(60%) contrast(400%);
+  transition: transform 0.2s;
+}
+
+#iconList .icon-wrapper.selected .icon {
+    transform: scale(0.9);
+}
+
+#iconList .icon-marker {
+  border-radius: 50%;
+  background-color: #00ff00;
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  width: 0px;
+  height: 0px;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s;
+}
+
+#iconList .icon-wrapper.selected .icon-marker {
+  width: 15px;
+  height: 15px;
+}
+
+#iconSelector .flipper, #iconSelector .selector {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  transition: box-shadow 0.3s;
+}
+
+.flipper {
+  float: left;
+}
+
+.selector {
+  border-radius: 50%;
+  float: right;
+}
+
+.front .flipper {
+  background-image: url(https://cdn2.iconfinder.com/data/icons/school-supplies-line/64/school-18-512.png);
+}
+
+.back .flipper {
+  background-image: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_select_all_48px-512.png);
+}
+
+.flipper:hover, .selector:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 50px;
+  font-weight: lighter;
 }
