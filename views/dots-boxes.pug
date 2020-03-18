@@ -2,6 +2,7 @@ extends layout
 
 block css
 	link(rel='stylesheet', href='/stylesheets/cheese.css')
+	link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
 
 block jsHead
 	script(src='/js/backend/internal/box.js')
@@ -12,11 +13,14 @@ block jsHead
 block content
 	.parent#parent.inactive
 		canvas#pointDesigner
-		.users
+		#users.card
 			- for (var i = 0; i < 4; i++) {
 				div(class='user user'+i)
+					.dot
 					div(class='userName' id='userName'+i)
 			- }
+			#retractor
+				i.material-icons expand_less
 		.page(id='page' style='height: 590px; width: 440px;')
 			.notch
 			.hole.holes-top
@@ -38,3 +42,4 @@ block jsBody
 	script(src='/js/frontend/frontend.js')
 	script(src='/js/frontend/navigation.js')
 	script(src='/js/frontend/init.js')
+	script(src='/js/frontend/clickEvents.js')
