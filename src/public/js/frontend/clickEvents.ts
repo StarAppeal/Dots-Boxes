@@ -37,7 +37,7 @@ for (var i = 0; i < previousButtonList.length; i++) {
 //flipper buttons
 for (var i = 0; i < flipperList.length; i++) {
   flipperList[i].addEventListener("mouseup", function(e) {
-    modalContainer.childNodes[1].classList.toggle("flipped")
+    iconSelector.classList.toggle("flipped")
   })
 }
 
