@@ -11,20 +11,25 @@ block jsHead
 	script(src='/js/backend/internal/backend.js') 	
 
 block content
-	.parent#parent.inactive
+	.parent#parent
 		input(type="button" value="Icon selector toggle")#iconDlgOpener
-		#iconSelector.inactive
-			.flip-card
-				.icon-selector-wrapper.front.card
-					i.flipper.material-icons flip_to_back
-					i.selector.material-icons check_circle_outline
+		#modalContainer(tabindex="-1")
+			#modalBG
+			#iconSelector.flip-card.modal
+				.icon-selector-wrapper.dialog.front.card
+					i.flipper.modal-button.left.material-icons flip_to_back
+					i.next.modal-button.right.material-icons chevron_right
 					h1 Bitte wähle ein Symbol
 					#iconList.card
-				.icon-selector-wrapper.back.card
-					i.flipper.material-icons flip_to_front
-					i.selector.material-icons check_circle_outline
+				.icon-selector-wrapper.dialog.back.card
+					i.flipper.modal-button.left.material-icons flip_to_front
+					i.next.modal-button.right.material-icons chevron_right
 					h1 Oder mal es dir halt selbst
 					canvas#pointDesigner
+			#colorSelector.dialog.modal.card
+				i.previous.modal-button.left.material-icons chevron_left
+				i.next.modal-button.right.material-icons check_circle_outline
+				h1 Hier kann man dann später die Farbe wählen oder so
 		#users.card
 			- for (var i = 0; i < 4; i++) {
 				div(class='user user'+i)
@@ -54,4 +59,5 @@ block jsBody
 	script(src='/js/frontend/frontend.js')
 	script(src='/js/frontend/navigation.js')
 	script(src='/js/frontend/init.js')
+	script(src='/js/frontend/modal.js')
 	script(src='/js/frontend/clickEvents.js')

@@ -1,9 +1,15 @@
 let retractor = document.getElementById("retractor")
 let iconDlgOpener = document.getElementById("iconDlgOpener")
 let iconSelector = document.getElementById("iconSelector")
+let colorSelector = document.getElementById("colorSelector")
+let modalBG = document.getElementById("modalBG")
+let modalContainer = document.getElementById("modalContainer")
 let iconList = document.getElementById("iconList")
 let flipperList = document.getElementsByClassName("flipper")
-let selectorList = document.getElementsByClassName("selector")
+let nextButtonList = document.getElementsByClassName("modal-button next")
+let previousButtonList = document.getElementsByClassName("modal-button previous")
+
+let iconModal = new Modal(modalContainer)
 
 retractor.addEventListener("mouseup", function(e) {
   let usersHeader = document.getElementById("users")
@@ -11,21 +17,31 @@ retractor.addEventListener("mouseup", function(e) {
 })
 
 iconDlgOpener.addEventListener("mouseup", function(e) {
-  iconSelector.classList.toggle("inactive")
+  iconModal.next()
 })
 
-for (var i = 0; i < selectorList.length; i++) {
-  selectorList[i].addEventListener("mouseup", function(e) {
-    iconSelector.classList.toggle("inactive")
+//next buttons
+for (var i = 0; i < nextButtonList.length; i++) {
+  nextButtonList[i].addEventListener("mouseup", function(e) {
+    iconModal.next()
   })
 }
 
+//previous buttons
+for (var i = 0; i < previousButtonList.length; i++) {
+  previousButtonList[i].addEventListener("mouseup", function(e) {
+    iconModal.previous()
+  })
+}
+
+//flipper buttons
 for (var i = 0; i < flipperList.length; i++) {
   flipperList[i].addEventListener("mouseup", function(e) {
-    iconSelector.firstElementChild.classList.toggle("flipped")
+    modalContainer.childNodes[1].classList.toggle("flipped")
   })
 }
 
+//append selectable icons
 let iconIndex = 0
 while (imageExists("/images/points/"+iconIndex+".png")) {
   let url = "url('/images/points/"+iconIndex+".png')"

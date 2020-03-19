@@ -1,7 +1,7 @@
 :root {
-    --background_color: lightblue;
-    --paper_color: white;
-    --active-user-color: #00d500;
+    --background-color: lightblue;
+    --paper-color: white;
+    --active-color: #00d500;
     --inactive-user-color: gray;
 }
 
@@ -12,17 +12,13 @@ body {
   overflow: hidden;
   padding: 0;
   margin: 0;
-  background-color: var(--background_color);
+  background-color: var(--background-color);
   font-family: 'Roboto', sans-serif;
   user-select: none;
 }
 
 html {
   box-sizing: border-box;
-}
-
-.inactive {
-    display: none
 }
 
 .parent {
@@ -40,7 +36,7 @@ html {
 
 .fluff, .notch, .hole, .hole:before, .ripline {
   position: absolute;
-  background-color: var(--background_color);
+  background-color: var(--background-color);
   z-index: 2;
 }
 
@@ -53,7 +49,7 @@ html {
 
 .fluff:before, .fluff:after {
   content: "";
-  background-color: var(--background_color);
+  background-color: var(--background-color);
   position: absolute;
 }
 
@@ -86,7 +82,7 @@ html {
   height: 100%;
   width: 1px;
   left: 18px;
-  background-image: linear-gradient(var(--background_color) 33%, rgba(255, 255, 255, 0) 0%);
+  background-image: linear-gradient(var(--background-color) 33%, rgba(255, 255, 255, 0) 0%);
   background-position: 0px;
   background-size: 1px 3px;
 }
@@ -124,7 +120,7 @@ html {
 #canvas {
   width: 100%;
   height: 100%;
-  background-color: var(--paper_color);
+  background-color: var(--paper-color);
   position: relative;
 }
 
@@ -173,7 +169,7 @@ html {
 }
 
 .user.active {
-  border-color: var(--active-user-color);
+  border-color: var(--active-color);
 }
 
 .user .dot {
@@ -191,7 +187,7 @@ html {
 .user.active .dot {
   width: 15px;
   height: 15px;
-  background-color: var(--active-user-color) !important;
+  background-color: var(--active-color) !important;
   transform: translate(-50%, -150%);
 }
 
@@ -233,11 +229,6 @@ html {
   background-color: #8080801f;
 }
 
-.inactive {
-  display: none;
-}
-
-
 #iconDlgOpener {
   z-index: 99;
   position: absolute;
@@ -249,53 +240,80 @@ html {
   height: 400px;
 }
 
-#iconSelector {
+#modalBG {
+  margin-left: 120%;
   width: 100%;
   height: 100%;
   position: absolute;
   background-color: #00000033;
-  z-index: 2;
+  border: 1px solid #f1f1f1;
+  transition: margin-left 0.4s ease-in;
 }
 
-#iconSelector {
-  border: 1px solid #f1f1f1;
+.modal.flip-card {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: flashflip 0.1s;
+  transition: margin-left 0.6s, transform 0.6s;
+}
+
+.dialog {
+  height: 500px;
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  padding: 20px;
+}
+
+.modal {
+  margin-left: 120%;
+  transition: margin-left 0.6s;
+  text-align: center;
+}
+
+#modalContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   perspective: 1000px;
 }
 
-.flip-card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  animation: flashflip 0.01s;
+#modalContainer.opened {
+  z-index: 2;
+}
+
+.modal.active, #modalContainer.opened #modalBG {
+  margin-left: 0;
+}
+
+.modal.inactive {
+  margin-left: -120%;
+}
+
+#colorSelector {
+  background-color: white;
 }
 
 @keyframes flashflip {
   0% {
-      opacity:0;
-      transform: rotatey(-180deg);
+      opacity: 0;
+      transform: rotatey(0);
     }
   100% {
-      opacity:1;
+      opacity: 0;
       transform: rotatey(180deg);
     }
 }
 
-#iconSelector .flip-card.flipped {
+.flip-card.flipped {
   transform: rotateY(180deg);
 }
 
 .icon-selector-wrapper {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   backface-visibility: hidden;
-  padding: 20px;
 }
 
 .icon-selector-wrapper.back {
@@ -335,7 +353,7 @@ html {
 
 #iconList .icon-marker {
   border-radius: 50%;
-  background-color: #00ff00;
+  background-color: var(--active-color);
   position: absolute;
   left: 25px;
   top: 25px;
@@ -350,7 +368,15 @@ html {
   height: 15px;
 }
 
-#iconSelector .flipper, #iconSelector .selector {
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.modal .modal-button {
   cursor: pointer;
   width: 30px;
   height: 30px;
@@ -358,13 +384,8 @@ html {
   transition: box-shadow 0.3s;
 }
 
-.flipper {
-  float: left;
-}
-
-.selector {
+.next, .previous {
   border-radius: 50%;
-  float: right;
 }
 
 .front .flipper {
@@ -375,7 +396,7 @@ html {
   background-image: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_select_all_48px-512.png);
 }
 
-.flipper:hover, .selector:hover {
+.modal-button:hover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
