@@ -86,6 +86,7 @@ function getMoveForPos(pos: Pos) {
 }
 
 function snapMarkerToGrid(e: any) {
+  if (!dragging) {
     let linePos = getLinePosForMousepos(getRelativeMousePos(e))
     let lineValidator = new LineValidator(linePos)
 
@@ -100,7 +101,10 @@ function snapMarkerToGrid(e: any) {
             marker.style.transform += " rotate(90deg)"
         }
     }
-}function getCellPositionForMousepos(mousePos: Pos) {
+  }
+}
+
+function getCellPositionForMousepos(mousePos: Pos) {
     let xPos = mousePos.x/gameCanvas.cellSize - gameCanvas.playableFieldOffsetLeft
     let yPos = mousePos.y/gameCanvas.cellSize - gameCanvas.playableFieldOffsetTop
     return new Pos(xPos, yPos)

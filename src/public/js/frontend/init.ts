@@ -8,4 +8,4 @@ mockGenerateAllPoints()
 mockInsertGarfield()
 displayCurrentUser(game.currentPlayer);
 
-parentEl.classList.remove("inactive")
+parentEl.classList.remove("invisible")

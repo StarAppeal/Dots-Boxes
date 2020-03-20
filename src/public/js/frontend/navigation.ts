@@ -1,7 +1,7 @@
 let zoom = 1.1 //the visual zoom (scale) of the paper
 
 //mouse stuff
-let holdMouseWheel = false
+let dragging = false
 let mousePosAtLastDrag: Pos
 let mousePosAbs: Pos
 
@@ -60,20 +60,20 @@ function dragField(e: any) {
     if (e.button === 2) { //right mouse button
         parentEl.style.cursor = "grabbing"
         mousePosAtLastDrag = getAbsoluteMousePos(e)
-        holdMouseWheel = true
+        dragging = true
     }
 }
 
 function stopDragField(e: any) {
     if (e.button === 2) { //right mouse button
         parentEl.style.cursor = "default"
-        holdMouseWheel = false
+        dragging = false
     }
 }
 
 function mouseMove(e: any) {
     mousePosAbs = getAbsoluteMousePos(e)
-    if (holdMouseWheel) {
+    if (dragging) {
         //calculates position difference between the last position change and now, and modifies the position accordingly
         page.style.top = parseInt(page.style.top) + mousePosAbs.y - mousePosAtLastDrag.y +"px"
         page.style.left = parseInt(page.style.left) + mousePosAbs.x - mousePosAtLastDrag.x +"px"
