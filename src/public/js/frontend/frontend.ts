@@ -22,7 +22,7 @@ let markerPos = new Pos(0,0)
 
 
 //adding all events to the window and marker
-window.addEventListener('mousemove', snapMarkerToGrid)
+gameCanvas.canvas.addEventListener('mousemove', snapMarkerToGrid)
 
 window.oncontextmenu = function (e: any) {
     e.preventDefault()
