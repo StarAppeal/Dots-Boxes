@@ -7,7 +7,7 @@ var port: any;
 http.createServer(app).listen(process.env.PORT, function() {
   port = this.address().port;
   console.log("App listens on port: " + port);
-  if (!process.env.NODE_ENV) {
+  if (process.argv[2] === 'DEBUG') {
     console.log("server started in debugmode:")
     debugMode();
   }

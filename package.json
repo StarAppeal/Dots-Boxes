@@ -3,12 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-	"start": "npm run serve",
+    "start": "npm run serve",
     "debug": "npm run build && npm run watch-debug",
     "build": "npm run build-sass && npm run build-ts && npm run copy-static-assets",
     "serve": "node dist/server.js",
-    "watch-node": "nodemon dist/server.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
     "test": "jest --forceExit --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
@@ -16,7 +14,7 @@
     "build-sass": "node-sass -r src/public/stylesheets/ -o dist/public/stylesheets/",
     "watch-sass": "node-sass -rw src/public/stylesheets/ -o dist/public/stylesheets/",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
-    "serve-debug": "nodemon --inspect dist/server.js",
+    "serve-debug": "node dist/server.js DEBUG",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\""
   },
   "dependencies": {
@@ -35,11 +33,10 @@
   "devDependencies": {
     "@types/node": "^13.9.0",
     "concurrently": "^5.0.0",
-    "mocha": "^7.1.0",
+    "mocha": "^7.1.1",
     "node-sass": "^4.13.0",
     "shelljs": "^0.8.3",
     "ts-node-dev": "^1.0.0-pre.44",
-    "nodemon": "^1.19.2",
     "typescript": "^3.8.3"
   }
 }
