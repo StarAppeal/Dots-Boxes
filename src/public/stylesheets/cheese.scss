@@ -260,8 +260,11 @@ html {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  animation: flashflip 0.1s;
   transition: margin-left 0.6s, transform 0.6s;
+}
+
+#parent.invisible .modal.flip-card {
+  transform: rotatey(180deg); //hack to load back of flip card initially
 }
 
 .dialog {
@@ -285,33 +288,58 @@ html {
   width: 100%;
   height: 100%;
   perspective: 1000px;
-}
-
-#modalContainer.opened {
   z-index: 2;
 }
 
-.modal.active, #modalContainer.opened #modalBG {
-  margin-left: 0;
+#modalContainer:not(.opened) {
+  animation: modal-container-inactive 0.6s forwards;
 }
 
-.modal.inactive {
-  margin-left: -120%;
+@keyframes modal-container-inactive {
+  100% {
+    z-index: 0;
+  }
+}
+
+.modal.active {
+  animation: active-modal 0.5s forwards;
+}
+
+#modalContainer.opened #modalBG {
+  animation: active-modal 0.6s ease-out forwards;
+}
+
+.modal:not(.active) {
+  animation: reset-modal 0.5s forwards;
+}
+
+#modalContainer:not(.opened) #modalBG {
+  animation: reset-modal 0.3s ease-out forwards;
+}
+
+@keyframes reset-modal {
+  0% {
+    margin-left: 0;
+  }
+  99% {
+    margin-left: -120%;
+  }
+  100% {
+    margin-left: 120%;
+  }
+}
+
+@keyframes active-modal {
+  0%  {
+    margin-left: 120%;
+  }
+  100% {
+    margin-left: 0;
+  }
 }
 
 #colorSelector {
   background-color: white;
-}
-
-@keyframes flashflip {
-  0% {
-      opacity: 0;
-      transform: rotatey(0);
-    }
-  100% {
-      opacity: 0;
-      transform: rotatey(180deg);
-    }
 }
 
 .flip-card.flipped {

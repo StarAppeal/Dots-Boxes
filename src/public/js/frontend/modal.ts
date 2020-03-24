@@ -15,7 +15,6 @@ class Modal {
       this.modalParent.classList.add("opened")
     } else {
       this.stepElements[this.stepIndex-1].classList.remove("active")
-      this.stepElements[this.stepIndex-1].classList.add("inactive")
     }
 
     if (this.stepIndex == this.maxSteps) {
@@ -28,11 +27,10 @@ class Modal {
 
   previous() {
     this.stepIndex--
-    if (this.stepIndex == 0) {
+    if (this.stepIndex <= 0) {
       this.reset()
     } else {
       this.stepElements[this.stepIndex-1].classList.add("active")
-      this.stepElements[this.stepIndex-1].classList.remove("inactive")
       this.stepElements[this.stepIndex].classList.remove("active")
 
     }
@@ -43,7 +41,6 @@ class Modal {
     this.modalParent.classList.remove("opened")
     for (let stepElement of this.stepElements) {
       stepElement.classList.remove("active")
-      stepElement.classList.remove("inactive")
     }
   }
 }
