@@ -16,10 +16,6 @@ retractor.addEventListener("mouseup", function(e) {
   usersHeader.classList.toggle("retracted")
 })
 
-iconDlgOpener.addEventListener("mouseup", function(e) {
-  iconModal.next()
-})
-
 //next buttons
 for (var i = 0; i < nextButtonList.length; i++) {
   nextButtonList[i].addEventListener("mouseup", function(e) {

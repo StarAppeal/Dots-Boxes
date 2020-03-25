@@ -2,6 +2,9 @@ extends layout
 
 block css
 	link(rel='stylesheet', href='/stylesheets/cheese.css')
+	link(rel='stylesheet', href='/stylesheets/modal.css')
+	link(rel='stylesheet', href='/stylesheets/paper.css')
+	link(rel='stylesheet', href='/stylesheets/users.css')
 	link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
 
 block jsHead
@@ -12,7 +15,6 @@ block jsHead
 
 block content
 	.parent#parent.invisible
-		input(type="button" value="Icon selector toggle")#iconDlgOpener
 		#modalContainer
 			#modalBG
 			#iconSelector.flip-card.modal
