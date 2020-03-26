@@ -9,6 +9,7 @@ let flipperList = document.getElementsByClassName("flipper")
 let nextButtonList = document.getElementsByClassName("modal-button next")
 let previousButtonList = document.getElementsByClassName("modal-button previous")
 let penPicker = document.getElementById("penPicker")
+let colorPicker = <any>document.getElementById("colorPicker")
 
 let iconModal = new Modal(modalContainer)
 
@@ -66,8 +67,9 @@ function selectIcon(icon: HTMLDivElement) {
   icon.classList.toggle("selected")
 }
 
-let penPresets = penPicker.getElementsByClassName("pen-preset")
-for (let preset of penPresets) {
+let penPresets: HTMLCollection = penPicker.getElementsByClassName("pen-preset")
+let preset: any
+for (preset of penPresets) {
   let color = '#' + preset.classList[preset.classList.length-1].substr(1)
   preset.style.borderColor = color
   preset.addEventListener("mouseup", function(e) {
