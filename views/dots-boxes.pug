@@ -31,7 +31,13 @@ block content
 			#colorSelector.dialog.modal.card
 				i.previous.modal-button.left.material-icons chevron_left
 				i.next.modal-button.right.material-icons check_circle_outline
-				h1 Hier kann man dann später die Farbe wählen oder so
+				h1 Wähle deine Stiftfarbe aus
+				div#penPicker
+					div.pen-preset.ink.c385aff
+					div.pen-preset.pencil.c848080
+					div.pen-preset.pen.c0089b7
+					div.pen-preset.marker.cf0ff70
+					input(type='color')#colorPicker
 		#users.card
 			- for (var i = 0; i < 4; i++) {
 				div(class='user user'+i)

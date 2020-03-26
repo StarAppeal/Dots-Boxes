@@ -103,14 +103,6 @@
   border-radius: 50%;
 }
 
-.flip-card .front .flipper {
-  background-image: url(https://cdn2.iconfinder.com/data/icons/school-supplies-line/64/school-18-512.png);
-}
-
-.flip-card .back .flipper {
-  background-image: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_select_all_48px-512.png);
-}
-
 .modal-button:hover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
@@ -184,4 +176,53 @@
 #iconList .icon-wrapper.selected .icon-marker {
   width: 15px;
   height: 15px;
+}
+
+#penPicker {
+  width: 100%;
+  height: 80%;
+}
+
+.pen-preset {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: box-shadow 0.2s;
+  display: inline-block;
+  margin: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  border-width: 3px;
+  border-style: solid;
+}
+
+.pen-preset:active {
+  box-shadow: none;
+}
+
+.pen-preset.pen {
+  background-image: url(https://image.flaticon.com/icons/svg/2438/2438427.svg);
+}
+
+.pen-preset.pencil {
+  background-image: url(https://image.flaticon.com/icons/svg/1659/1659764.svg);
+}
+
+.pen-preset.ink {
+  background-image: url(https://image.flaticon.com/icons/svg/1014/1014859.svg);
+}
+
+.pen-preset.marker {
+  background-image: url(https://image.flaticon.com/icons/svg/2610/2610897.svg);
+}
+
+#colorPicker {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: 80%;
+  height: 70%;
 }
