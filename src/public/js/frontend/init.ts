@@ -8,4 +8,6 @@ mockGenerateAllPoints()
 mockInsertGarfield()
 displayCurrentUser(game.currentPlayer);
 
+//iconModal.next()
+
 parentEl.classList.remove("invisible")

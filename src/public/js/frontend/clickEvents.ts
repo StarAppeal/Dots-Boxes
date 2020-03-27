@@ -8,16 +8,14 @@ let iconList = document.getElementById("iconList")
 let flipperList = document.getElementsByClassName("flipper")
 let nextButtonList = document.getElementsByClassName("modal-button next")
 let previousButtonList = document.getElementsByClassName("modal-button previous")
+let penPicker = document.getElementById("penPicker")
+let colorPicker = <any>document.getElementById("colorPicker")
 
 let iconModal = new Modal(modalContainer)
 
 retractor.addEventListener("mouseup", function(e) {
   let usersHeader = document.getElementById("users")
   usersHeader.classList.toggle("retracted")
-})
-
-iconDlgOpener.addEventListener("mouseup", function(e) {
-  iconModal.next()
 })
 
 //next buttons
@@ -67,4 +65,14 @@ function selectIcon(icon: HTMLDivElement) {
     selectedIconWrapper.classList.remove("selected")
   }
   icon.classList.toggle("selected")
+}
+
+let penPresets: HTMLCollection = penPicker.getElementsByClassName("pen-preset")
+let preset: any
+for (preset of penPresets) {
+  let color = '#' + preset.classList[preset.classList.length-1].substr(1)
+  preset.style.borderColor = color
+  preset.addEventListener("mouseup", function(e) {
+    colorPicker.value = color
+  })
 }

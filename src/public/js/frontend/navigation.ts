@@ -85,3 +85,33 @@ function setDefaultPaperPosition() {
     page.style.top = (window.innerHeight * 0.5 - (parseInt(page.style.height) * zoom / 2)) + 'px'
     page.style.left = (window.innerWidth * 0.5 - (parseInt(page.style.width) * zoom / 2)) + 'px'
 }
+
+var hammertime = new Hammer(parentEl);
+
+hammertime.get('pinch').set({ enable: true });
+hammertime.on('pinchout', function(ev) {
+  let nz = zoom * 1.01
+  if (nz > 15 || nz < 1) return
+	zoomFunct(nz)
+});
+
+hammertime.on('pinchin', function(ev) {
+  let nz = zoom / 1.01
+  if (nz > 15 || nz < 1) return
+	zoomFunct(nz)
+});
+
+hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+
+hammertime.on('panup', function(ev) {
+  page.style.top = parseInt(page.style.top) - 10 +"px"
+});
+hammertime.on('pandown', function(ev) {
+  page.style.top = parseInt(page.style.top) + 10 +"px"
+});
+hammertime.on('panleft', function(ev) {
+  page.style.left = parseInt(page.style.left) - 10 +"px"
+});
+hammertime.on('panright', function(ev) {
+  page.style.left = parseInt(page.style.left) + 10 +"px"
+});
