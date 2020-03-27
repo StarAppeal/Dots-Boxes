@@ -20,11 +20,34 @@ function debugMode() {
   //create database tables if not exist
   _models.sequelize.sync().then(function() {
     //creating mockdata:
-    _models.User.create({
+    _models.User.bulkCreate([{
       username: "StarAppeal_mocked",
-      email: "nocked@starappeal.de",
-      pass: "justARandomString..."
-    });
+      email: "mocked@starappeal.de",
+      pass: "justARandomString...",
+      profilePic: 'god.png'
+    }, {
+      username: 'tsomic_mocked',
+      email: 'mocked@tsomic.de',
+      pass: 'bigChungus420blazeit',
+      profilePic: 'BigChungus.jpg'
+    }]);
+
+    _models.Sheet.bulkCreate([{
+      userId: 1,
+      archived: false
+    }, {
+      userId: 1,
+      archived: true
+    }, {
+      userId: 2,
+      archived: true
+    }, {
+      userId: 2,
+      archived: true
+    }, {
+      userId: 3, //should fail
+      archived: false
+    }]);
 
   });
 }
