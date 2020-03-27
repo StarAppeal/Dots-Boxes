@@ -104,3 +104,18 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+//DOPEFISH LIVES
+.page:before {
+  content: 'dopefish lives';
+  background-image: url(/images/dopefish.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  left: -5000px;
+  text-align: center;
+  font-size: 80px;
+  padding-top: 106%;
+}
