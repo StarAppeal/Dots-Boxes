@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     }
+  }, {
+    timestamps: true
   })
   return Game;
 }

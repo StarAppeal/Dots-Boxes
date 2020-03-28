@@ -26,8 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     }
-  }, {
-    freezeTableName: true
   });
 
   return GameUserMap;

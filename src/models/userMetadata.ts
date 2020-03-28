@@ -15,9 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     icon: DataTypes.STRING,
     color: DataTypes.STRING
-  }, {
-    freezeTableName: true,
-    timestamps: false
   });
 
   return UserMetadata

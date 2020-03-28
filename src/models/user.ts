@@ -8,11 +8,16 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     username: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true
+      }
+    },
     pass: DataTypes.STRING,
     profilePic: DataTypes.STRING
   }, {
-    freezeTableName: true
+    timestamps: true
   });
 
   //associations here:
