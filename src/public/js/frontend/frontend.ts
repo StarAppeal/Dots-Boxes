@@ -178,6 +178,15 @@ function generatePointFromPointDesigner(userId: number) {
     var generatedImage = new Image
     generatedImage.src = pointDesigner.toDataURL("image/png")
     designedPointsMap.set(userId, generatedImage)
+
+    fillHoverData(userId)
+}
+
+//fills the hover data for the given userId
+function fillHoverData(userId: number) {
+  let hoverWrapper = document.getElementsByClassName("user_hover")[userId]
+  hoverWrapper.getElementsByClassName("hover_icon")[0].style.backgroundImage = "url(" + designedPointsMap.get(userId).src + ")"
+  //hoverWrapper.getElementsByClassName("hover_color")[0].style.backgroundColor = getUserColor(userId)
 }
 
 //sets the icon "id" in the color "clr" for the given user
@@ -193,7 +202,7 @@ function choosePreset(clr: string, id: number, userId: number) {
     }
 }
 
-//generates three entries in the designedPointsMap
+//generates four entries in the designedPointsMap
 function mockGenerateAllPoints() {
     for (var i = 0; i < 4; i++) {
         choosePreset(Math.floor(Math.random()*16777215).toString(16), i, i)
@@ -207,7 +216,7 @@ function mockInsertGarfield() {
     for (var i = 0; i < 4; i++) {
         userImage = userImages[i]
         userImage.style.backgroundImage = "url('/images/garfield/"+i+".gif')"
-        userImages[i].childNodes[1].innerHTML = "User #"+i
+        userImages[i].childNodes[2].innerHTML = "User #"+i
     }
 }
 
