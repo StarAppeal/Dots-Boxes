@@ -185,7 +185,8 @@ function generatePointFromPointDesigner(userId: number) {
 //fills the hover data for the given userId
 function fillHoverData(userId: number) {
   let hoverWrapper = document.getElementsByClassName("user_hover")[userId]
-  hoverWrapper.getElementsByClassName("hover_icon")[0].style.backgroundImage = "url(" + designedPointsMap.get(userId).src + ")"
+  let hoverIcon : HTMLElement = hoverWrapper.getElementsByClassName("hover_icon")[0]
+  hoverIcon.style.backgroundImage = "url(" + designedPointsMap.get(userId).src + ")"
   //hoverWrapper.getElementsByClassName("hover_color")[0].style.backgroundColor = getUserColor(userId)
 }
 
