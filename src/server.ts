@@ -4,7 +4,7 @@ const opn = require('opn');
 const _models = require("./models")
 var port: any;
 
-http.createServer(app).listen(process.env.PORT, function() {
+http.createServer(app).listen(8080, function() {
   port = this.address().port;
   console.log("App listens on port: " + port);
   if (process.argv[2] === 'DEBUG') {
