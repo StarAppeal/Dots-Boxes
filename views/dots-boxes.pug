@@ -13,6 +13,15 @@ block jsHead
 	script(src='/js/backend/internal/moveValidator.js')
 	script(src='/js/backend/internal/backend.js') 	
 
+mixin user(id)
+	div(class='user user'+id)
+		.dot
+		.user_hover
+			.hover_icon
+			.hover_points 0
+			.hover_color
+		div(class='userName' id='userName'+id)
+
 block content
 	.parent#parent.invisible
 		#modalContainer
@@ -39,15 +48,12 @@ block content
 					div.pen-preset.marker.cf0ff70
 					input(type='color')#colorPicker
 		#users.card
-			- for (var i = 0; i < 4; i++) {
-				div(class='user user'+i)
-					.dot
-					.user_hover
-						.hover_icon
-						.hover_points 0
-						.hover_color
-					div(class='userName' id='userName'+i)
-			- }
+			+user(0)
+			+user(1)
+			.round Runde
+				.round-number 1
+			+user(2)
+			+user(3)
 			#retractor
 				i.material-icons expand_less
 		.page(id='page' style='height: 590px; width: 440px;')

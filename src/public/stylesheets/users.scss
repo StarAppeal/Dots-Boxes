@@ -58,10 +58,11 @@
 }
 
 .userName {
-    position: relative;
-    top: 113%;
-    font-weight: 700;
-    font-size: small;
+  position: absolute;
+  top: 113%;
+  font-weight: 700;
+  font-size: small;
+  width: 80px;
 }
 
 .user_hover {
@@ -129,4 +130,15 @@
 
 #retractor:hover {
   background-color: #8080801f;
+}
+
+.round {
+  width: 80px;
+  height: 90px;
+  display: inline-block;
+  margin-top: 20px;
+  vertical-align: top;
+  .round-number {
+    font-size: 50px;
+  }
 }
