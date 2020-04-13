@@ -1,0 +1,25 @@
+#navigationMenu {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  height: 40px;
+  border-top-left-radius: 5px;
+}
+
+#navigationMenu i {
+  font-size: 30px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+  transition: background-color 0.3s;
+}
+
+#navigationMenu i:hover {
+  background-color: #8080801f;
+  cursor: pointer;
+}

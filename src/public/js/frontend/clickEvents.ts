@@ -8,8 +8,15 @@ let iconList = document.getElementById("iconList")
 let flipperList = document.getElementsByClassName("flipper")
 let nextButtonList = document.getElementsByClassName("modal-button next")
 let previousButtonList = document.getElementsByClassName("modal-button previous")
-let penPicker = document.getElementById("penPicker")
+let penPresets: HTMLCollection = document.getElementById("penPicker").getElementsByClassName("pen-preset")
 let colorPicker = <any>document.getElementById("colorPicker")
+
+document.querySelector('#navigationMenu .plus').onclick = function() {
+  zoomIn()
+}
+document.querySelector('#navigationMenu .minus').onclick = function() {
+  zoomOut()
+}
 
 let iconModal = new Modal(modalContainer)
 
@@ -67,7 +74,6 @@ function selectIcon(icon: HTMLDivElement) {
   icon.classList.toggle("selected")
 }
 
-let penPresets: HTMLCollection = penPicker.getElementsByClassName("pen-preset")
 let preset: any
 for (preset of penPresets) {
   let color = '#' + preset.classList[preset.classList.length-1].substr(1)

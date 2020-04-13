@@ -22,38 +22,55 @@ function zoomFunct(newZoom: number) {
 
 function canvasScroll(e: any) {
     if (e.wheelDeltaX != undefined && e.wheelDeltaX != 0) return //unwanted mouse wheel action
-    let newZoom = zoom
-    if (e.deltaY > 0) {
-        newZoom = newZoom / 1.5
-    } else {
-        newZoom = newZoom * 1.5
-    }
-    if (newZoom > 15 || newZoom < 1) return //zoom outside of allowed range
 
     let oldMousePosRel = getRelativeMousePos(e)
-    zoomFunct(newZoom)
+
+    if (e.deltaY > 0) {
+        zoomOut()
+    } else {
+        zoomIn()
+    }
+
     let newMousePosRel = getRelativeMousePos(e)
 
-    //setting top and left values relative to the mouse position so it stays the same
-    //(not completely sure why it works, but it does!)
-    page.style.top = parseInt(page.style.top) + (newMousePosRel.y - oldMousePosRel.y) * zoom / gameCanvas.canvasSizeFactor + "px"
-    page.style.left = parseInt(page.style.left) + (newMousePosRel.x - oldMousePosRel.x) * zoom / gameCanvas.canvasSizeFactor + "px"
+    movePageAfterZoom(oldMousePosRel, newMousePosRel)
+}
+
+function zoomIn() {
+  let newZoom = zoom
+  newZoom = newZoom * 1.5
+  if (newZoom > 30) return false
+  zoomFunct(newZoom)
+}
+
+function zoomOut() {
+  let newZoom = zoom
+  newZoom = newZoom / 1.5
+  if (newZoom < 1) return false
+  zoomFunct(newZoom)
+}
+
+function movePageAfterZoom(before: Pos, after: Pos) {
+  //setting top and left values relative to the mouse position so it stays the same
+  //(not completely sure why it works, but it does!)
+  page.style.top = parseInt(page.style.top) + (after.y - before.y) * zoom / gameCanvas.canvasSizeFactor + "px"
+  page.style.left = parseInt(page.style.left) + (after.x - before.x) * zoom / gameCanvas.canvasSizeFactor + "px"
 }
 
 function getAbsoluteMousePos(e: any) {
-    return new Pos(e.clientX, e.clientY)
+  return new Pos(e.clientX, e.clientY)
 }
 
 //mouse pos relative to (/not influenced by) the current zoom
 function getRelativeMousePos(e: any) {
-    let rect = gameCanvas.canvas.getBoundingClientRect(), // abs. size of element
-        scaleX = gameCanvas.canvasWidth / rect.width,    // relationship bitmap vs. element for X
-        scaleY = gameCanvas.canvasHeight / rect.height  // relationship bitmap vs. element for Y
+  let rect = gameCanvas.canvas.getBoundingClientRect(), // abs. size of element
+    scaleX = gameCanvas.canvasWidth / rect.width,    // relationship bitmap vs. element for X
+    scaleY = gameCanvas.canvasHeight / rect.height  // relationship bitmap vs. element for Y
 
-    let xPos = (e.clientX - rect.left) * scaleX // scale mouse coordinates after they have
-    let yPos = (e.clientY - rect.top) * scaleY  // been adjusted to be relative to element
+  let xPos = (e.clientX - rect.left) * scaleX // scale mouse coordinates after they have
+  let yPos = (e.clientY - rect.top) * scaleY  // been adjusted to be relative to element
 
-    return new Pos(xPos, yPos)
+  return new Pos(xPos, yPos)
 }
 
 function dragField(e: any) {

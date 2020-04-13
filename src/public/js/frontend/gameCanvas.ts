@@ -15,7 +15,7 @@ class GameCanvas extends Canvas {
     constructor(id: string) {
         super(id)
 
-        this.canvasSizeFactor = 5 //the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
+        this.canvasSizeFactor = 8 //the actual drawing size (3 ≙ thrice the size of the canvas pixel dimensions)
         this.cellSize = 10 * this.canvasSizeFactor //size of a single cell in pixels
         this.canvasWidth = 44 * this.cellSize //canvas width in pixels
         this.canvasHeight = 59 * this.cellSize //canvas height in pixels
@@ -84,6 +84,7 @@ class GameCanvas extends Canvas {
 
         this.context.strokeStyle = lineColor
         this.context.beginPath()
+        this.context.lineCap = "round";
         this.context.lineWidth = 1.5 * this.canvasSizeFactor
         this.context.moveTo(calculatedPos.x + getRandom(this.canvasSizeFactor), calculatedPos.y + getRandom(this.canvasSizeFactor))
         if (vertical) {

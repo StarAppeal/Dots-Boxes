@@ -5,6 +5,7 @@ block css
 	link(rel='stylesheet', href='/stylesheets/modal.css')
 	link(rel='stylesheet', href='/stylesheets/paper.css')
 	link(rel='stylesheet', href='/stylesheets/users.css')
+	link(rel='stylesheet', href='/stylesheets/navigationMenu.css')
 	link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
 
 block jsHead
@@ -66,6 +67,11 @@ block content
 			- }
 			.hoverMarker#hoverMarker
 			canvas#canvas
+		#navigationMenu
+			i.material-icons.plus zoom_in
+			i.material-icons.minus zoom_out
+			i.material-icons.focus crop
+			i.material-icons.highlight-previous-line center_focus_weak
 
 block jsBody
 	script(src='/js/frontend/hammer.min.js')
