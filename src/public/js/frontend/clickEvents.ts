@@ -11,12 +11,13 @@ let previousButtonList = document.getElementsByClassName("modal-button previous"
 let penPresets: HTMLCollection = document.getElementById("penPicker").getElementsByClassName("pen-preset")
 let colorPicker = <any>document.getElementById("colorPicker")
 
-document.querySelector('#navigationMenu .plus').onclick = function() {
+document.querySelector('#navigationMenu .plus').addEventListener('mouseup', function() {
   zoomIn()
-}
-document.querySelector('#navigationMenu .minus').onclick = function() {
+})
+
+document.querySelector('#navigationMenu .minus').addEventListener('mouseup', function() {
   zoomOut()
-}
+})
 
 let iconModal = new Modal(modalContainer)
 
