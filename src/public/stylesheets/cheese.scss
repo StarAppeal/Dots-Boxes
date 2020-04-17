@@ -1,8 +1,25 @@
 :root {
-    --background-color: lightblue;
-    --paper-color: white;
+  --background-color: lightblue;
+  --paper-color: white;
+  --active-color: #00d500;
+  --inactive-user-color: gray;
+  --shade-1: white;
+  --shade-1-accent: black; //text color
+  --shade-2: var(--shade-1);
+  --shade-2-accent: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #173254;
+    --paper-color: #272727;
     --active-color: #00d500;
     --inactive-user-color: gray;
+    --shade-1: #181a1f;
+    --shade-1-accent: #6b727d; //text color
+    --shade-2: #282c34;
+    --shade-2-accent: #4b5362;
+  }
 }
 
 html,
@@ -45,7 +62,7 @@ html {
 
 .card {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  background-color: white;
+  background-color: var(--shade-1);
   border-radius: 10px;
 }
 

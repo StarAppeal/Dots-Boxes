@@ -2,9 +2,10 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  background-color: white;
+  background-color: var(--shade-1);
   height: 40px;
   border-top-left-radius: 5px;
+  color: var(--shade-1-accent);
 }
 
 #navigationMenu i {
