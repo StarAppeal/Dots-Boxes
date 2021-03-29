@@ -1,43 +1,32 @@
 {
   "name": "dots-and-boxes",
-  "version": "0.0.1",
+  "version": "0.0.0.0.1",
   "private": true,
   "scripts": {
     "start": "npm run serve",
     "debug": "npm run build && npm run watch-debug",
-    "build": "npm run build-sass && npm run build-ts && npm run copy-static-assets",
+    "build": "npm run build-ts",
     "serve": "node dist/server.js",
     "test": "jest --forceExit --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "build-sass": "node-sass -r src/public/stylesheets/ -o dist/public/stylesheets/",
-    "watch-sass": "node-sass -rw src/public/stylesheets/ -o dist/public/stylesheets/",
-    "copy-static-assets": "ts-node copyStaticAssets.ts",
     "serve-debug": "node dist/server.js DEBUG",
-    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\""
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
   },
   "dependencies": {
-    "@types/hammerjs": "^2.0.36",
     "body-parser": "~1.18.3",
     "cookie-parser": "^1.4.4",
     "debug": "~4.1.1",
     "express": "~4.16.4",
     "mariadb": "^2.2.0",
     "morgan": "~1.9.1",
-    "opn": "^6.0.0",
-    "pug": "^2.0.3",
     "sequelize": "^5.21.4",
-    "serve-favicon": "~2.5.0",
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
     "@types/node": "^13.9.0",
     "concurrently": "^5.0.0",
-    "cypress": "^4.3.0",
-    "mocha": "^7.1.1",
-    "node-sass": "^4.13.0",
-    "shelljs": "^0.8.3",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   }

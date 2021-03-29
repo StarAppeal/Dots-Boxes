@@ -9,14 +9,14 @@ class MoveValidator {
 
     isBorderClickable() {
         let field: Box = game.field[this.move.x][this.move.y];
-        switch (this.move.clickedBorder) {
-            case 0:
+        switch (this.move.direction) {
+            case 'top':
                 return !field.top;
-            case 1:
+            case 'right':
                 return !field.right
-            case 2:
+            case 'bottom':
                 return !field.bot
-            case 3:
+            case 'left':
                 return !field.left;
             default:
                 throw "Unknown clickedBorder..";

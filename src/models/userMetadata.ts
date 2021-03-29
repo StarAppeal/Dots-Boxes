@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     icon: DataTypes.STRING,
-    color: DataTypes.STRING
+    color: DataTypes.STRING,
+    penWidth: DataTypes.INTEGER
   });
 
   return UserMetadata

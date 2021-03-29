@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     direction: {
-      type: DataTypes.ENUM('top', 'bot', 'left', 'right'),
+      type: DataTypes.ENUM('top', 'bottom', 'left', 'right'),
       primaryKey: true
     },
     fieldId: {

@@ -20,6 +20,5 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   });
 
-  //associations here:
   return User;
 };

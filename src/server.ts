@@ -1,6 +1,5 @@
 const app = require('./app');
 const http = require('http');
-const opn = require('opn');
 const _models = require("./models")
 var port: any;
 
@@ -15,8 +14,6 @@ http.createServer(app).listen(8080, function() {
 
 
 function debugMode() {
-  opn('http://localhost:' + port + '/kaesekaestchen');
-
   //create database tables if not exist
   _models.sequelize.sync().then(function() {
     //creating mockdata:
